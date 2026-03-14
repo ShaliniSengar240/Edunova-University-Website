@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - EduNova University</title>
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <script src="js/api.js"></script>
+
+
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check">
+          <i  class="fa fa-bars" id="checkbtn"></i>
+          <i  class="fa fa-close" id="cancel"></i>
+        </label>
+        <img src="logo2.jpg" class="logo">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="home.html#testimonials">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="login.html">Log In</a></li>
+          <li> <input type="text" placeholder="Search Course" required></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="contact-hero">
+        <div class="hero-content">
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you. Get in touch with us today!</p>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p>Have questions? We're here to help and answer any question you might have.</p>
+            
+            <div class="info-box">
+                <div class="info-item">
+                    <i class="fa fa-map-marker"></i>
+                    <div>
+                        <h3>Address</h3>
+                        <p>123 University Avenue<br>City, State 12345<br>India</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa fa-phone"></i>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>Main: (555) 123-4567<br>Admissions: (555) 123-4568<br>Support: (555) 123-4569</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>General: info@edunova.edu<br>Admissions: admissions@edunova.edu<br>Support: support@edunova.edu</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa fa-clock-o"></i>
+                    <div>
+                        <h3>Office Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 10:00 AM - 2:00 PM<br>Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+            <h2>Send us a Message</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a subject</option>
+                        <option value="admissions">Admissions Inquiry</option>
+                        <option value="academic">Academic Information</option>
+                        <option value="financial">Financial Aid</option>
+                        <option value="campus">Campus Visit</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="map-section">
+        <h2>Find Us on Map</h2>
+        <div class="map-placeholder">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.111234567890!2d88.36!3d22.57!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDM0JzEyLjAiTiA4OMKwMjEnMzYuMCJF!5e0!3m2!1sen!2sin!4v1234567890" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+        <footer class="footer">
+        <div class="conn">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>User Links</h4>
+                        <ul>
+                            <li><a href="home.html" >Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="#testimonials">Testimonials</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="login.html">Log In</a></li>
+                        </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Core Values</h4>
+                        <ul>
+                            <li><a>Excellence</a></li>
+                            <li><a>Integrity</a></li>
+                            <li><a>Diversity</a></li>
+                            <li><a>Innovation</a></li>
+                        </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Courses</h4>
+                        <ul>
+                            <li><a>UI/UX Designer Courses</a></li>
+                            <li><a>PHP Shopify Courses</a></li>
+                            <li><a>Photoshop Web DESIGN</a></li>
+                            <li><a>Sketch Mobile App</a></li>
+                        </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/"><i class="fab fa-x"></i></a>
+                            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                            <a href="https://in.linkedin.com/"><i class="fab fa-linkedin"></i></a>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+       </footer>
+
+       
+    <script>
+        // Handle contact form submission
+        document.querySelector('.contact-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+    
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        try {
+            await submitContactForm(name, email, phone, subject, message);
+            alert('Message sent successfully!');
+            e.target.reset();
+        } catch (error) {
+            alert('Failed to send message: ' + error.message);
+        }
+    });
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - EduNova University</title>
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <!-- Include API (auth persistence via localStorage token) -->
+    <script src="js/api.js"></script>
+
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check">
+          <i  class="fa fa-bars" id="checkbtn"></i>
+          <i  class="fa fa-close" id="cancel"></i>
+        </label>
+        <img src="logo2.jpg" class="logo">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="home.html#testimonials">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li> <input type="text" placeholder="Search Course" required></li>
+        </ul>
+    </nav>
+
+    <!-- Confirmation Modal -->
+    <div id="cancelModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Cancel Application</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to cancel this application?</p>
+                <p class="modal-warning">This action cannot be undone.</p>
+                <p id="cancelCourseName" style="font-weight: bold; color: rgb(10, 10, 110); margin-top: 15px;"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel-btn" onclick="closeCancelModal()">No, Keep It</button>
+                <button class="modal-btn confirm-btn" onclick="confirmCancelApplication()">Yes, Cancel Application</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="user-profile">
+                <div class="profile-image">
+                    <i class="fa fa-user-circle"></i>
+                </div>
+                <h3 id="studentName">Student</h3>
+                <p class="user-id" id="studentId">Student ID: -</p>
+            </div>
+
+            <nav class="sidebar-menu">
+                <ul>
+                    <li class="active">
+                        <a href="#applications">
+                            <i class="fa fa-file-text"></i>
+                            <span>My Applications</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#enrolled">
+                            <i class="fa fa-book"></i>
+                            <span>Enrolled Courses</span>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a href="#profile">
+                            <i class="fa fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="#documents">
+                            <i class="fa fa-folder"></i>
+                            <span>Documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#payments">
+                            <i class="fa fa-credit-card"></i>
+                            <span>Payments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#settings">
+                            <i class="fa fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="logout" id="logoutBtn">
+                            <i class="fa fa-sign-out"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div>
+                    <h1 id="welcomeTitle">Welcome Back!</h1>
+                    <p>Here's an overview of your applications and progress</p>
+                </div>
+                <button class="new-application-btn" onclick="window.location.href='courses.html'">
+                    <i class="fa fa-plus"></i> New Application
+                </button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon pending">
+                        <i class="fa fa-clock-o"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statPending">0</h3>
+                        <p>Pending Applications</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon approved">
+                        <i class="fa fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statApproved">0</h3>
+                        <p>Approved</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon review">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statReview">0</h3>
+                        <p>Under Review</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon total">
+                        <i class="fa fa-file-text-o"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statTotal">0</h3>
+                        <p>Total Applications</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications Section -->
+            <div class="applications-section" id="applications">
+                <div class="section-header">
+                    <h2>My Course Applications</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterApplications('all')">All</button>
+                        <button class="filter-btn" onclick="filterApplications('pending')">Pending</button>
+                        <button class="filter-btn" onclick="filterApplications('approved')">Approved</button>
+                        <button class="filter-btn" onclick="filterApplications('review')">Under Review</button>
+                    </div>
+                </div>
+
+                <!-- Application Cards -->
+                <div class="applications-list" id="applicationsList">
+                    <div style="text-align:center; padding: 30px; color:#666;">
+                        Loading your applications...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enrolled Courses Section -->
+            <div class="enrolled-section" id="enrolled">
+                <div class="section-header">
+                    <h2>Enrolled Courses</h2>
+                </div>
+                <div class="applications-list" id="enrolledCoursesList">
+                    <div style="text-align:center; padding: 30px; color:#666;">
+                        No enrolled courses yet. Approved applications will appear here.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Section -->
+            <div class="documents-section" id="documents">
+                <div class="section-header">
+                    <h2>Submitted Documents</h2>
+                </div>
+                <div class="applications-list" id="documentsList">
+                    <div style="text-align:center; padding: 30px; color:#666;">
+                        No documents found yet. Submit an application with uploaded documents to see them here.
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="quick-actions-section">
+        <h2 style="text-align: center;">Quick Actions</h2>
+        <div class="quick-actions-grid">
+            <div class="quick-action-card">
+                <i class="fa fa-plus-circle"></i>
+                <h3>Apply for New Course</h3>
+                <p>Explore and apply for available programs</p>
+                <button onclick="window.location.href='courses.html'">Browse Courses</button>
+            </div>
+
+            <div class="quick-action-card">
+                <i class="fa fa-envelope"></i>
+                <h3>Contact Admissions</h3>
+                <p>Get help with your application</p>
+                <button onclick="window.location.href='contact.html'">Contact Us</button>
+            </div>
+
+            <div class="quick-action-card">
+                <i class="fa fa-file-text"></i>
+                <h3>Application Status</h3>
+                <p>Track your application progress</p>
+                <button>Check Status</button>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="conn">
+        <div class="row">
+            <div class="footer-col">
+                <h4>User Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Events</a></li>
+                    </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Activities</h4>
+                    <ul>
+                        <li><a href="#">Become a Teacher</a></li>
+                        <li><a href="#">Maintenance</a></li>
+                        <li><a href="#">Language Packs</a></li>
+                        <li><a href="#">LearnPress</a></li>
+                        <li><a href="#">Release Status</a></li>
+                    </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Recent Courses</h4>
+                    <ul>
+                        <li><a href="#">UI/UX Designer Courses</a></li>
+                        <li><a href="#">PHP Shopify Courses</a></li>
+                        <li><a href="#">Photoshop Web DESIGN</a></li>
+                        <li><a href="#">Sketch Mobile App</a></li>
+                    </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+   // Global variable to track application to cancel
+   let applicationToCancel = null;
+
+   // Open cancel modal
+   function openCancelModal(appId, courseName) {
+       applicationToCancel = appId;
+       document.getElementById('cancelCourseName').textContent = courseName;
+       document.getElementById('cancelModal').style.display = 'block';
+   }
+
+   // Close cancel modal
+   function closeCancelModal() {
+       applicationToCancel = null;
+       document.getElementById('cancelModal').style.display = 'none';
+   }
+
+   // Close modal when clicking outside
+   window.onclick = function(event) {
+       const modal = document.getElementById('cancelModal');
+       if (event.target === modal) {
+           closeCancelModal();
+       }
+   }
+
+   // Confirm cancellation
+   async function confirmCancelApplication() {
+       if (!applicationToCancel) return;
+
+       try {
+           // Show loading state
+           const confirmBtn = document.querySelector('.confirm-btn');
+           confirmBtn.textContent = 'Cancelling...';
+           confirmBtn.disabled = true;
+
+           console.log('Attempting to cancel application:', applicationToCancel);
+
+           // Try using api.js deleteApplication function if available
+           if (typeof deleteApplication === 'function') {
+               console.log('Using deleteApplication from api.js');
+               const result = await deleteApplication(applicationToCancel);
+               console.log('Delete result:', result);
+           } else {
+               // Fallback to direct fetch
+               console.log('Using direct fetch to delete application');
+               const token = localStorage.getItem('token');
+               console.log('Using token:', token ? 'Token exists' : 'No token');
+               
+               const response = await fetch(`http://localhost:3000/api/applications/${applicationToCancel}`, {
+                   method: 'DELETE',
+                   headers: {
+                       'Authorization': `Bearer ${token}`,
+                       'Content-Type': 'application/json'
+                   }
+               });
+
+               console.log('Response status:', response.status);
+               console.log('Response ok:', response.ok);
+
+               if (!response.ok) {
+                   const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
+                   console.error('Error response:', errorData);
+                   throw new Error(errorData.message || `Server returned ${response.status}`);
+               }
+
+               const result = await response.json().catch(() => ({}));
+               console.log('Success response:', result);
+           }
+
+           // Close modal
+           closeCancelModal();
+
+           // Show success message
+           alert('Application cancelled successfully');
+
+           // Reload the page to refresh data
+           window.location.reload();
+
+       } catch (error) {
+           console.error('Error cancelling application:', error);
+           alert(`Failed to cancel application: ${error.message}\n\nPlease check the console for details.`);
+           
+           // Reset button
+           const confirmBtn = document.querySelector('.confirm-btn');
+           confirmBtn.textContent = 'Yes, Cancel Application';
+           confirmBtn.disabled = false;
+       }
+   }
+
+   // Filter applications by status
+   function filterApplications(status) {
+       const cards = document.querySelectorAll('.application-card');
+       const buttons = document.querySelectorAll('.filter-btn');
+       
+       // Update active button
+       buttons.forEach(btn => btn.classList.remove('active'));
+       event.target.classList.add('active');
+       
+       // Filter cards
+       cards.forEach(card => {
+           if (status === 'all') {
+               card.style.display = 'block';
+           } else {
+               if (card.classList.contains(status)) {
+                   card.style.display = 'block';
+               } else {
+                   card.style.display = 'none';
+               }
+           }
+       });
+   }
+
+   // Auth + data loading (real applications)
+   document.addEventListener('DOMContentLoaded', async () => {
+        // Close modal button functionality
+        const closeBtn = document.querySelector('.close-modal');
+        if (closeBtn) {
+            closeBtn.onclick = closeCancelModal;
+        }
+
+        if (typeof isLoggedIn === 'undefined') {
+            alert('api.js not loaded. Please ensure frontend/js/api.js exists.');
+            return;
+        }
+
+        if (!isLoggedIn()) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const user = getCurrentUser();
+        if (!user || user.role !== 'student') {
+            alert('Student login required.');
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // Personalize UI
+        document.getElementById('studentName').textContent = user.name || 'Student';
+        document.getElementById('studentId').textContent = `Student ID: ${user.student_id || '-'}`;
+        document.getElementById('welcomeTitle').textContent = `Welcome Back, ${user.name || 'Student'}!`;
+
+        // Logout
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                logout();
+            });
+        }
+
+        // Load my applications
+        try {
+            const result = await getMyApplications();
+            const apps = result.applications || [];
+
+            // Stats
+            const counts = { pending: 0, approved: 0, rejected: 0, review: 0 };
+            apps.forEach(a => { if (a.status && counts[a.status] !== undefined) counts[a.status]++; });
+            document.getElementById('statPending').textContent = counts.pending;
+            document.getElementById('statApproved').textContent = counts.approved;
+            document.getElementById('statReview').textContent = counts.review;
+            document.getElementById('statTotal').textContent = apps.length;
+
+            // Render "My Applications" list
+            const list = document.getElementById('applicationsList');
+            if (!list) return;
+
+            if (apps.length === 0) {
+                list.innerHTML = `
+                    <div style="text-align:center; padding: 30px; color:#666;">
+                        No applications yet. Click "New Application" to apply.
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = '';
+
+            // Also prepare enrolled courses (approved applications)
+            const enrolledList = document.getElementById('enrolledCoursesList');
+            if (enrolledList) {
+                // Clear the default placeholder; we'll add it back if nothing is enrolled
+                enrolledList.innerHTML = '';
+            }
+            let hasEnrolled = false;
+
+            // Prepare documents section (what was marked uploaded in each application)
+            const documentsList = document.getElementById('documentsList');
+            if (documentsList) {
+                documentsList.innerHTML = '';
+            }
+            let hasDocuments = false;
+
+            apps.forEach(app => {
+                const status = (app.status || 'pending').toLowerCase();
+                const courseName = app.course_name || 'Course';
+                const courseType = app.course_type || 'Program';
+                const duration = app.duration || '';
+                const appId = app.application_id || app.id || '-';
+                const appliedDate = app.created_at ? new Date(app.created_at).toLocaleDateString() : '-';
+
+                // Debug logging
+                console.log('Processing application:', {
+                    courseName,
+                    status,
+                    appId,
+                    hasAdditionalInfo: !!app.additional_info
+                });
+
+                const card = document.createElement('div');
+                card.className = `application-card ${status}`;
+                
+                // Add cancel button only for pending applications
+                const cancelButton = status === 'pending' ? `
+                    <div class="application-actions">
+                        <button class="action-btn danger" onclick="openCancelModal('${appId}', '${courseName.replace(/'/g, "\\'")}')">
+                            <i class="fa fa-times"></i> Cancel Application
+                        </button>
+                    </div>
+                ` : '';
+                
+                card.innerHTML = `
+                    <div class="application-header">
+                        <div class="application-icon">
+                            <i class="fa fa-file-text"></i>
+                        </div>
+                        <div class="application-title">
+                            <h3>${courseName}</h3>
+                            <p class="program-type">${courseType} • ${duration}</p>
+                        </div>
+                        <span class="status-badge ${status}">
+                            <i class="fa ${status === 'approved' ? 'fa-check-circle' : status === 'review' ? 'fa-search' : 'fa-clock-o'}"></i>
+                            ${status.toUpperCase()}
+                        </span>
+                    </div>
+                    <div class="application-details">
+                        <div class="detail-item">
+                            <i class="fa fa-calendar"></i>
+                            <span>Applied: ${appliedDate}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fa fa-hashtag"></i>
+                            <span>App ID: ${appId}</span>
+                        </div>
+                    </div>
+                    ${cancelButton}
+                `;
+                list.appendChild(card);
+
+                // If approved, also show under Enrolled Courses
+                if (enrolledList && status === 'approved') {
+                    console.log('Adding to enrolled courses:', courseName);
+                    hasEnrolled = true;
+                    const enrolledCard = document.createElement('div');
+                    enrolledCard.className = 'application-card enrolled';
+                    enrolledCard.innerHTML = `
+                        <div class="application-header">
+                            <div class="application-icon">
+                                <i class="fa fa-graduation-cap"></i>
+                            </div>
+                            <div class="application-title">
+                                <h3>${courseName}</h3>
+                                <p class="program-type">${courseType} • ${duration}</p>
+                            </div>
+                            <span class="status-badge approved">
+                                <i class="fa fa-check-circle"></i>
+                                ENROLLED
+                            </span>
+                        </div>
+                        <div class="application-details">
+                            <div class="detail-item">
+                                <i class="fa fa-calendar"></i>
+                                <span>Enrolled on: ${appliedDate}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa fa-hashtag"></i>
+                                <span>App ID: ${appId}</span>
+                            </div>
+                        </div>
+                    `;
+                    enrolledList.appendChild(enrolledCard);
+                }
+
+                // Documents summary per application (based on apply.html form)
+                if (documentsList && app.additional_info) {
+                    try {
+                        const info = JSON.parse(app.additional_info);
+                        const docs = info.documents || {};
+                        const has10th = !!docs.has10th;
+                        const has12th = !!docs.has12th;
+                        const hasBachelor = !!docs.hasBachelor;
+
+                        console.log('Document info for', courseName, ':', { has10th, has12th, hasBachelor });
+
+                        // Skip if no document flags are true
+                        if (!has10th && !has12th && !hasBachelor) {
+                            return;
+                        }
+
+                        console.log('Adding to documents section:', courseName);
+                        hasDocuments = true;
+                        const docCard = document.createElement('div');
+                        docCard.className = 'application-card documents-card';
+                        docCard.innerHTML = `
+                            <div class="application-header">
+                                <div class="application-icon">
+                                    <i class="fa fa-folder-open"></i>
+                                </div>
+                                <div class="application-title">
+                                    <h3>${courseName}</h3>
+                                    <p class="program-type">Application ID: ${appId}</p>
+                                </div>
+                                <span class="status-badge ${status}">
+                                    <i class="fa fa-file-text-o"></i>
+                                    ${status.toUpperCase()}
+                                </span>
+                            </div>
+                            <div class="application-details">
+                                <div class="detail-item">
+                                    <i class="fa ${has10th ? 'fa-check-circle' : 'fa-circle-o'}"></i>
+                                    <span>10th Marksheet: ${has10th ? 'Uploaded' : 'Not uploaded'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fa ${has12th ? 'fa-check-circle' : 'fa-circle-o'}"></i>
+                                    <span>12th Marksheet: ${has12th ? 'Uploaded' : 'Not uploaded'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fa ${hasBachelor ? 'fa-check-circle' : 'fa-circle-o'}"></i>
+                                    <span>Bachelor Marksheet: ${hasBachelor ? 'Uploaded' : 'Not uploaded / Not applicable'}</span>
+                                </div>
+                            </div>
+                        `;
+                        documentsList.appendChild(docCard);
+                    } catch (err) {
+                        // If additional_info is not valid JSON, skip gracefully
+                        console.warn('Could not parse additional_info for documents:', err);
+                    }
+                }
+            });
+
+            // If there are no approved applications, show the "no enrolled courses" message
+            if (enrolledList && !hasEnrolled) {
+                console.log('No enrolled courses found, showing placeholder');
+                enrolledList.innerHTML = `
+                    <div style="text-align:center; padding: 30px; color:#666;">
+                        No enrolled courses yet. Approved applications will appear here.
+                    </div>
+                `;
+            } else {
+                console.log('Has enrolled courses:', hasEnrolled);
+            }
+
+            // If there are no documents recorded, show the "no documents" message
+            if (documentsList && !hasDocuments) {
+                console.log('No documents found, showing placeholder');
+                documentsList.innerHTML = `
+                    <div style="text-align:center; padding: 30px; color:#666;">
+                        No documents found yet. Submit an application with uploaded documents to see them here.
+                    </div>
+                `;
+            } else {
+                console.log('Has documents:', hasDocuments);
+            }
+        } catch (e) {
+            const list = document.getElementById('applicationsList');
+            if (list) {
+                list.innerHTML = `<div style="text-align:center; padding: 30px; color:#c00;">Error loading applications: ${e.message}</div>`;
+            }
+        }
+   });
+</script>
+</body>
+</html>

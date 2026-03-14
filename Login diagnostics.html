@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Diagnostics - EduNova</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        h2 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        label {
+            font-weight: 600;
+            color: #555;
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Login Diagnostics Tool</h1>
+        <p style="text-align: center; color: #666;">This will help you figure out why login is failing</p>
+
+        <!-- Step 1 -->
+        <div class="test-section">
+            <h2>Step 1: Check Backend Connection</h2>
+            <button onclick="testBackend()">Test Backend</button>
+            <div id="backend-result"></div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="test-section">
+            <h2>Step 2: Test Direct Login (No API.js)</h2>
+            <p>Try logging in directly to see the REAL error message:</p>
+            
+            <label>Email:</label>
+            <input type="text" id="test-email" value="john.doe@example.com" placeholder="Enter email">
+            
+            <label>Password:</label>
+            <input type="password" id="test-password" value="student123" placeholder="Enter password">
+            
+            <label>Role:</label>
+            <select id="test-role" style="width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+            </select>
+            
+            <button onclick="testDirectLogin()">Test Login</button>
+            <button onclick="fillAdmin()">Fill Admin Credentials</button>
+            <div id="login-result"></div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="test-section">
+            <h2>Step 3: Register New Test User</h2>
+            <p>Create a fresh user to test with:</p>
+            
+            <label>Name:</label>
+            <input type="text" id="reg-name" value="Test Student" placeholder="Full Name">
+            
+            <label>Email:</label>
+            <input type="email" id="reg-email" value="teststudent@example.com" placeholder="Email">
+            
+            <label>Password:</label>
+            <input type="password" id="reg-password" value="test123" placeholder="Password">
+            
+            <button onclick="registerUser()">Register & Test</button>
+            <div id="register-result"></div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="test-section">
+            <h2>Step 4: Backend Logs</h2>
+            <p>Check your terminal where backend is running for error messages.</p>
+            <div class="info result">
+Look for lines like:
+POST /api/auth/login
+Any error messages will show there.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+
+        function fillAdmin() {
+            document.getElementById('test-email').value = 'admin@edunova.edu';
+            document.getElementById('test-password').value = 'admin123';
+            document.getElementById('test-role').value = 'admin';
+        }
+
+        async function testBackend() {
+            const resultDiv = document.getElementById('backend-result');
+            resultDiv.innerHTML = '<div class="info result">Testing...</div>';
+
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<div class="success result">✅ Backend is running!\nResponse: ${JSON.stringify(data, null, 2)}</div>`;
+                } else {
+                    throw new Error('Backend returned error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error result">❌ Backend NOT running!\nError: ${error.message}\n\nFix: Run 'npm run dev' in backend folder</div>`;
+            }
+        }
+
+        async function testDirectLogin() {
+            const resultDiv = document.getElementById('login-result');
+            const email = document.getElementById('test-email').value;
+            const password = document.getElementById('test-password').value;
+            const role = document.getElementById('test-role').value;
+
+            resultDiv.innerHTML = '<div class="info result">Testing login...</div>';
+
+            try {
+                console.log('Attempting login with:', { email, password: '***', role });
+
+                const response = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password, role })
+                });
+
+                const data = await response.json();
+                
+                console.log('Login response:', data);
+
+                if (response.ok && data.token) {
+                    resultDiv.innerHTML = `<div class="success result">✅ LOGIN SUCCESSFUL!
+
+User Details:
+━━━━━━━━━━━━━━━━━━
+Name: ${data.user.name}
+Email: ${data.user.email}
+Role: ${data.user.role}
+Student ID: ${data.user.student_id}
+
+Token: ${data.token.substring(0, 30)}...
+
+✅ This means:
+1. Backend is working
+2. Database is working
+3. User exists
+4. Password is correct
+
+If your login page still fails, the problem is in api.js or login.html, NOT the backend!</div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="error result">❌ LOGIN FAILED!
+
+Status Code: ${response.status}
+Error Message: ${data.message}
+
+REAL ERROR (not "session expired"):
+${JSON.stringify(data, null, 2)}
+
+Common Issues:
+━━━━━━━━━━━━━━━━━━
+1. If error is "Invalid credentials":
+   → Email or password is wrong
+   → Try the other credentials below
+
+2. If error is "Database error":
+   → Run 'npm run init-db' in backend folder
+
+3. If error is "Invalid credentials for this role":
+   → You selected Student but user is Admin (or vice versa)
+
+Try these credentials:
+━━━━━━━━━━━━━━━━━━
+Student: john.doe@example.com / student123
+Admin: admin@edunova.edu / admin123</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error result">❌ REQUEST FAILED!
+
+Error: ${error.message}
+
+This means:
+• Backend is not running, OR
+• Wrong URL (should be http://localhost:3000)
+
+Fix: Make sure backend is running with 'npm run dev'</div>`;
+            }
+        }
+
+        async function registerUser() {
+            const resultDiv = document.getElementById('register-result');
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+
+            resultDiv.innerHTML = '<div class="info result">Registering user...</div>';
+
+            try {
+                // First, register
+                const regResponse = await fetch(`${API_URL}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const regData = await regResponse.json();
+
+                if (!regResponse.ok) {
+                    if (regData.message.includes('already exists')) {
+                        resultDiv.innerHTML = `<div class="warning result">⚠️ User already exists!
+
+Trying to login with existing credentials...</div>`;
+                        // Try to login instead
+                        await testLoginAfterRegister(email, password);
+                        return;
+                    }
+                    throw new Error(regData.message);
+                }
+
+                // Then try to login
+                resultDiv.innerHTML = `<div class="success result">✅ User registered successfully!
+Student ID: ${regData.studentId}
+
+Now testing login...</div>`;
+
+                setTimeout(() => testLoginAfterRegister(email, password), 1000);
+
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error result">❌ Registration failed!
+Error: ${error.message}</div>`;
+            }
+        }
+
+        async function testLoginAfterRegister(email, password) {
+            const resultDiv = document.getElementById('register-result');
+
+            try {
+                const loginResponse = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, role: 'student' })
+                });
+
+                const loginData = await loginResponse.json();
+
+                if (loginResponse.ok && loginData.token) {
+                    resultDiv.innerHTML = `<div class="success result">✅ REGISTRATION & LOGIN SUCCESSFUL!
+
+You can now login with:
+━━━━━━━━━━━━━━━━━━
+Email: ${email}
+Password: ${password}
+Role: Student
+
+User Details:
+Name: ${loginData.user.name}
+Student ID: ${loginData.user.student_id}
+
+🎉 This user works! Use it on your login page!</div>`;
+                } else {
+                    throw new Error(loginData.message);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error result">❌ Login test failed after registration!
+Error: ${error.message}
+
+User was created but login failed. This is very strange.
+Check backend terminal for errors.</div>`;
+            }
+        }
+
+        // Auto-test backend on page load
+        window.onload = () => {
+            console.log('Login Diagnostics Tool Loaded');
+            console.log('Click buttons to run tests');
+        };
+    </script>
+</body>
+</html>

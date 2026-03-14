@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - EduNova University</title>
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* Subtle hover effect for contact messages and recent activities */
+        .activity-list .activity-item {
+            transition: background-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .activity-list .activity-item:hover {
+            background-color: #f7f9fc;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body>
+    <!-- Include API -->
+    <script src="js/api.js"></script>
+
+    <!-- Debug Console -->
+    <div id="debugConsole" style="position: fixed; bottom: 0; left: 0; right: 0; background: #000; color: #0f0; padding: 10px; max-height: 150px; overflow-y: auto; font-family: monospace; font-size: 12px; z-index: 10000; display: none;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <strong>Debug Console</strong>
+            <button onclick="document.getElementById('debugConsole').style.display='none'" style="background: #f00; color: #fff; border: none; padding: 2px 10px; cursor: pointer;">Close</button>
+        </div>
+        <div id="debugMessages"></div>
+    </div>
+
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check">
+          <i  class="fa fa-bars" id="checkbtn"></i>
+          <i  class="fa fa-close" id="cancel"></i>
+        </label>
+        <img src="logo2.jpg" class="logo">
+        <ul>
+          <li><a href="admin.html">Admin Dashboard</a></li>
+          <li><a href="#" id="topLogoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Admin Dashboard Container -->
+    <div class="admin-dashboard-container">
+        <!-- Admin Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-profile">
+                <div class="admin-image">
+                    <i class="fa fa-user-circle"></i>
+                </div>
+                <h3 class="admin-name">Admin Panel</h3>
+                <p class="admin-role">System Administrator</p>
+            </div>
+
+            <nav class="admin-menu">
+                <ul>
+                    <li class="active">
+                        <a href="#overview">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#applications">
+                            <i class="fa fa-file-text"></i>
+                            <span>Applications</span>
+                            <span class="badge" id="pendingBadge">0</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#students">
+                            <i class="fa fa-users"></i>
+                            <span>Students</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#courses-mgmt">
+                            <i class="fa fa-book"></i>
+                            <span>Courses</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#contact-messages">
+                            <i class="fa fa-envelope"></i>
+                            <span>Contact Messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="logout" id="logoutBtn">
+                            <i class="fa fa-sign-out"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Admin Main Content -->
+        <main class="admin-content">
+            <!-- Dashboard / Overview Section -->
+            <section id="overview">
+                <!-- Header Section -->
+                <div class="admin-header">
+                    <div>
+                        <h1>Admin Dashboard</h1>
+                        <p>Welcome back! Here's what's happening today</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="notification-btn">
+                            <i class="fa fa-bell"></i>
+                            <span class="notification-count" id="notificationCount">0</span>
+                        </button>
+                        <button class="add-btn" onclick="document.getElementById('debugConsole').style.display='block'">
+                            <i class="fa fa-bug"></i> Debug
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="admin-stats-grid">
+                <div class="admin-stat-card blue">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p>Total Students</p>
+                            <h2 id="totalStudents">0</h2>
+                            <span class="stat-change positive">
+                                <i class="fa fa-arrow-up"></i> Active users
+                            </span>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fa fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-stat-card green">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p>New Applications</p>
+                            <h2 id="totalApplications">0</h2>
+                            <span class="stat-change positive">
+                                <i class="fa fa-arrow-up"></i> Total submitted
+                            </span>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fa fa-file-text"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-stat-card orange">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p>Active Courses</p>
+                            <h2 id="totalCourses">0</h2>
+                            <span class="stat-change neutral">
+                                <i class="fa fa-book"></i> Available courses
+                            </span>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fa fa-book"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-stat-card purple">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p>Pending Review</p>
+                            <h2 id="pendingApplications">0</h2>
+                            <span class="stat-change positive">
+                                <i class="fa fa-clock-o"></i> Awaiting action
+                            </span>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <!-- Recent Applications Section -->
+            <section id="applications" class="admin-section">
+                <div class="section-title">
+                    <h2>Recent Applications</h2>
+                    <a href="#" class="view-all">View All <i class="fa fa-arrow-right"></i></a>
+                </div>
+
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Course</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationsTableBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 40px;">
+                                    <i class="fa fa-spinner fa-spin" style="font-size: 30px; color: #666;"></i>
+                                    <p style="margin-top: 10px; color: #666;">Loading applications...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Two Column Layout (Contact Messages + Recent Activities) -->
+            <section id="contact-messages" class="two-column-grid">
+                <!-- Contact Messages -->
+                <div class="admin-section">
+                    <div class="section-title">
+                        <h2>Recent Contact Messages</h2>
+                    </div>
+                    <div class="activity-list" id="contactMessagesList">
+                        <div style="text-align: center; padding: 20px; color: #666;">
+                            <i class="fa fa-spinner fa-spin"></i> Loading messages...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="admin-section">
+                    <div class="section-title">
+                        <h2>Recent Activities</h2>
+                    </div>
+                    <div class="activity-list" id="recentActivitiesList">
+                        <div style="text-align: center; padding: 20px; color: #666;">
+                            <i class="fa fa-spinner fa-spin"></i> Loading activities...
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+
+           <!-- ==================== MANAGE ADMINS SECTION ==================== -->
+            <div class="admin-section" id="manage-admins">
+                <div class="section-title">
+                    <h2><i class="fa fa-user-secret" style="margin-right:8px;color:#9b59b6;"></i>Manage Admins</h2>
+                    <button class="add-btn" onclick="openAddAdminModal()">
+                        <i class="fa fa-user-plus"></i> Add New Admin
+                    </button>
+                </div>
+
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Admin</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Added On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminsTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align:center;padding:40px;">
+                                    <i class="fa fa-spinner fa-spin" style="font-size:30px;color:#666;"></i>
+                                    <p style="margin-top:10px;color:#666;">Loading admins...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Change Password (for currently logged-in admin) -->
+                <div style="margin-top:30px;padding-top:25px;border-top:1px solid #ecf0f1;">
+                    <h3 style="color:#1a1a2e;font-size:17px;font-weight:700;margin-bottom:18px;">
+                        <i class="fa fa-lock" style="margin-right:8px;color:#9b59b6;"></i>Change Your Password
+                    </h3>
+                    <form id="changePasswordForm" style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:15px;align-items:end;">
+                        <div>
+                            <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Current Password</label>
+                            <input type="password" id="currentPassword" placeholder="Enter current password"
+                                style="width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;transition:border 0.2s;">
+                        </div>
+                        <div>
+                            <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">New Password</label>
+                            <input type="password" id="newPassword" placeholder="At least 6 characters"
+                                style="width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;transition:border 0.2s;">
+                        </div>
+                        <div>
+                            <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" placeholder="Re-enter new password"
+                                style="width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;transition:border 0.2s;">
+                        </div>
+                        <button type="submit"
+                            style="padding:10px 22px;background:#9b59b6;color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.2s;white-space:nowrap;">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                    </form>
+                    <div id="passwordChangeMsg" style="display:none;margin-top:12px;padding:10px 14px;border-radius:8px;font-size:14px;"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ==================== ADD ADMIN MODAL ==================== -->
+        <div id="addAdminModal" class="modal-overlay" onclick="closeAddAdminModal(event)">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3><i class="fa fa-user-plus" style="margin-right:8px;"></i>Add New Admin</h3>
+                    <button class="modal-close-btn" onclick="closeAddAdminModal()">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="addAdminForm">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Full Name <span style="color:#e74c3c;">*</span></label>
+                                <input type="text" id="newAdminName" placeholder="e.g. Jane Smith" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Email Address <span style="color:#e74c3c;">*</span></label>
+                                <input type="email" id="newAdminEmail" placeholder="e.g. jane@edunova.edu" required>
+                            </div>
+                        </div>
+                        <div class="form-field" style="margin-top:16px;">
+                            <label>Phone <span style="color:#95a5a6;font-weight:400;">(optional)</span></label>
+                            <input type="tel" id="newAdminPhone" placeholder="e.g. +91 98765 43210">
+                        </div>
+                        <div class="modal-info-box">
+                            <i class="fa fa-info-circle"></i>
+                            A temporary password will be generated automatically. Share it with the new admin —
+                            it will only be shown <strong>once</strong> and cannot be retrieved later.
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="modal-cancel-btn" onclick="closeAddAdminModal()">Cancel</button>
+                        <button type="submit" class="modal-submit-btn" id="addAdminSubmitBtn">
+                            <i class="fa fa-user-plus"></i> Create Admin
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==================== APPLICATION DETAILS MODAL ==================== -->
+        <div id="applicationDetailsModal" class="modal-overlay" style="display:none;">
+            <div class="modal-box" style="max-width:640px;">
+                <div class="modal-header">
+                    <h3><i class="fa fa-file-text" style="margin-right:8px;"></i>Application Details</h3>
+                    <button class="modal-close-btn" onclick="closeApplicationDetailsModal()">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Student Name</label>
+                            <div id="detailStudentName" class="detail-value"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>Student ID</label>
+                            <div id="detailStudentId" class="detail-value"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Email</label>
+                            <div id="detailEmail" class="detail-value"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>Phone</label>
+                            <div id="detailPhone" class="detail-value"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Registered On</label>
+                            <div id="detailRegisteredOn" class="detail-value"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>Application ID</label>
+                            <div id="detailApplicationId" class="detail-value"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Course Applied</label>
+                            <div id="detailCourse" class="detail-value"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>Status</label>
+                            <div id="detailStatus" class="detail-value"></div>
+                        </div>
+                    </div>
+                    <div class="form-field" style="margin-top:16px;">
+                        <label>Additional Information</label>
+                        <div id="detailAdditionalInfo" class="detail-value" style="max-height:200px; overflow-y:auto; border:1px solid #eee; border-radius:6px; padding:8px;"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-submit-btn" onclick="closeApplicationDetailsModal()">
+                        <i class="fa fa-check"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CONTACT MESSAGE DETAILS MODAL ==================== -->
+        <div id="contactDetailsModal" class="modal-overlay" style="display:none;">
+            <div class="modal-box" style="max-width:640px;">
+                <div class="modal-header">
+                    <h3><i class="fa fa-envelope-open" style="margin-right:8px;"></i>Contact Message</h3>
+                    <button class="modal-close-btn" onclick="closeContactDetailsModal()">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Name</label>
+                            <div id="contactDetailName" class="detail-value"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>Email</label>
+                            <div id="contactDetailEmail" class="detail-value"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Phone</label>
+                            <div id="contactDetailPhone" class="detail-value"></div>
+                        </div>
+                        <div class="form-field">
+                            <label>Date</label>
+                            <div id="contactDetailDate" class="detail-value"></div>
+                        </div>
+                    </div>
+                    <div class="form-field" style="margin-top:16px;">
+                        <label>Subject</label>
+                        <div id="contactDetailSubject" class="detail-value"></div>
+                    </div>
+                    <div class="form-field" style="margin-top:16px;">
+                        <label>Message</label>
+                        <div id="contactDetailMessage" class="detail-value" style="max-height:200px; overflow-y:auto; border:1px solid #eee; border-radius:6px; padding:8px; white-space:pre-wrap;"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-submit-btn" onclick="closeContactDetailsModal()">
+                        <i class="fa fa-check"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TEMP PASSWORD REVEAL MODAL ==================== -->
+        <!-- <div id="tempPasswordModal" class="modal-overlay">
+            <div class="modal-box" style="max-width:480px;">
+                <div class="modal-header" style="background:linear-gradient(135deg,#27ae60,#2ecc71);">
+                    <h3><i class="fa fa-check-circle" style="margin-right:8px;"></i>Admin Created!</h3>
+                </div> -->
+                <!-- <div class="modal-body" style="text-align:center;padding:30px 30px 10px;">
+                    <p style="color:#555;margin-bottom:20px;font-size:15px;">
+                        The account for <strong id="newAdminNameDisplay"></strong> has been created.<br>
+                        Share this temporary password with them:
+                    </p>
+                    <div class="temp-password-box">
+                        <span id="tempPasswordDisplay"></span>
+                        <button class="copy-btn" onclick="copyTempPassword()" title="Copy to clipboard">
+                            <i class="fa fa-copy"></i>
+                        </button>
+                    </div>
+                    <p style="color:#e74c3c;font-size:13px;margin-top:16px;">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        This password will <strong>not</strong> be shown again. Copy it now.
+                    </p>
+                </div> -->
+                <!-- <div class="modal-footer">
+                    <button class="modal-submit-btn" onclick="closeTempPasswordModal()"
+                        style="width:100%;justify-content:center;">
+                        <i class="fa fa-check"></i> I've copied it — Done
+                    </button>
+                </div> -->
+            </div>
+        </div>
+
+
+    
+
+    <script>
+        // Debug logging function
+        function debugLog(message, type = 'info') {
+            const debugDiv = document.getElementById('debugMessages');
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? '#f00' : type === 'success' ? '#0f0' : '#fff';
+            debugDiv.innerHTML += `<div style="color: ${color};">[${timestamp}] ${message}</div>`;
+            debugDiv.scrollTop = debugDiv.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        // Check if admin is logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            debugLog('Page loaded, checking authentication...');
+            
+            // Check if api.js loaded
+            if (typeof isLoggedIn === 'undefined') {
+                debugLog('ERROR: api.js not loaded! Make sure js/api.js exists', 'error');
+                alert('ERROR: api.js file not found!\n\nMake sure:\n1. api.js is in frontend/js/ folder\n2. Path is correct: js/api.js');
+                return;
+            }
+            
+            debugLog('api.js loaded successfully', 'success');
+            
+            if (!isLoggedIn()) {
+                debugLog('User not logged in, redirecting...', 'error');
+                alert('Please login first');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const user = getCurrentUser();
+            debugLog(`Logged in as: ${user.name} (${user.role})`, 'success');
+            
+            if (user.role !== 'admin') {
+                debugLog('Access denied: User is not admin', 'error');
+                alert('Access denied. Admin login required.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Display admin name
+            document.querySelector('.admin-name').textContent = user.name;
+            debugLog('Admin authenticated successfully', 'success');
+
+            // Load all dashboard data
+            loadDashboardData();
+        });
+
+        // Logout handler
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                logout();
+            }
+        });
+
+        // Top navbar logout handler
+        const topLogoutBtn = document.getElementById('topLogoutBtn');
+        if (topLogoutBtn) {
+            topLogoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Are you sure you want to logout?')) {
+                    logout();
+                }
+            });
+        }
+
+        // Main function to load all dashboard data
+        async function loadDashboardData() {
+            debugLog('Starting to load dashboard data...');
+            
+            try {
+                // Check backend connectivity first
+                debugLog('Testing backend connection...');
+                const testResponse = await fetch('http://localhost:3000');
+                if (!testResponse.ok) {
+                    throw new Error('Backend server not responding');
+                }
+                debugLog('Backend server is running ✓', 'success');
+                
+                // Load statistics
+                debugLog('Loading statistics...');
+                await loadStatistics();
+                
+                // Load applications
+                debugLog('Loading applications...');
+                await loadApplications();
+                
+                // Load contact messages
+                debugLog('Loading contact messages...');
+                await loadContactMessages();
+                
+                debugLog('All data loaded successfully!', 'success');
+                
+            } catch (error) {
+                debugLog(`ERROR: ${error.message}`, 'error');
+                console.error('Error loading dashboard:', error);
+                
+                if (error.message.includes('Failed to fetch')) {
+                    alert('⚠️ Cannot connect to backend server!\n\nPlease check:\n1. Backend is running (npm run dev)\n2. Server is on http://localhost:3000\n3. No CORS errors in console (F12)');
+                } else {
+                    alert('Error loading dashboard: ' + error.message);
+                }
+            }
+        }
+
+        // Load dashboard statistics
+        async function loadStatistics() {
+            try {
+                debugLog('Calling getAdminStats()...');
+                const stats = await getAdminStats();
+                debugLog(`Stats received: ${JSON.stringify(stats)}`, 'success');
+                
+                // Update stat cards
+                document.getElementById('totalStudents').textContent = stats.stats.totalStudents || 0;
+                document.getElementById('totalApplications').textContent = stats.stats.totalApplications || 0;
+                document.getElementById('totalCourses').textContent = stats.stats.totalCourses || 0;
+                document.getElementById('pendingApplications').textContent = stats.stats.pendingApplications || 0;
+                
+                // Update badges
+                document.getElementById('pendingBadge').textContent = stats.stats.pendingApplications || 0;
+                document.getElementById('notificationCount').textContent = stats.stats.pendingApplications || 0;
+                
+                debugLog('Statistics updated successfully', 'success');
+                
+            } catch (error) {
+                debugLog(`Error in loadStatistics: ${error.message}`, 'error');
+                console.error('Error loading statistics:', error);
+            }
+        }
+
+        // Cache for applications so we can show full details without stuffing everything into HTML attributes
+        let adminApplicationsById = {};
+
+        // Load applications table
+        async function loadApplications() {
+            try {
+                debugLog('Calling getAllApplications()...');
+                const result = await getAllApplications();
+                const applications = result.applications || [];
+                debugLog(`Received ${applications.length} applications`, 'success');
+                
+                const tbody = document.getElementById('applicationsTableBody');
+                
+                if (applications.length === 0) {
+                    debugLog('No applications found', 'info');
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
+                                <i class="fa fa-inbox" style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
+                                No applications yet
+                            </td>
+                        </tr>
+                    `;
+                    // Still update activities even if no applications
+                    updateRecentActivities([]);
+                    return;
+                }
+                
+                // Show recent 10 applications
+                const recentApps = applications.slice(0, 10);
+                debugLog(`Displaying ${recentApps.length} recent applications`, 'info');
+                
+                // Cache all applications by ID for detail view
+                adminApplicationsById = {};
+                applications.forEach(app => {
+                    adminApplicationsById[app.id] = app;
+                });
+
+                tbody.innerHTML = '';
+                recentApps.forEach(app => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>
+                            <div class="student-info">
+                                <div class="student-avatar">${app.student_name.charAt(0).toUpperCase()}</div>
+                                <div>
+                                    <strong>${app.student_name}</strong>
+                                    <small>${app.student_email}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${app.course_name}</td>
+                        <td>${formatDate(app.created_at)}</td>
+                        <td>
+                            <span class="status-pill ${app.status}">${app.status.toUpperCase()}</span>
+                        </td>
+                        <td>
+                            <button class="action-icon approve" onclick="changeStatus(${app.id}, 'approved')" title="Approve">
+                                <i class="fa fa-check"></i>
+                            </button>
+                            <button class="action-icon view" onclick="viewDetails(${app.id})" title="View Details">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button class="action-icon reject" onclick="changeStatus(${app.id}, 'rejected')" title="Reject">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                // Update recent activities from applications
+                updateRecentActivities(applications);
+                debugLog('Applications table populated', 'success');
+                
+            } catch (error) {
+                debugLog(`Error in loadApplications: ${error.message}`, 'error');
+                console.error('Error loading applications:', error);
+                document.getElementById('applicationsTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #e74c3c;">
+                            <i class="fa fa-exclamation-triangle" style="font-size: 30px; display: block; margin-bottom: 10px;"></i>
+                            Error: ${error.message}
+                        </td>
+                    </tr>
+                `;
+                updateRecentActivities([]);
+            }
+        }
+
+        // Update application status - renamed to avoid conflict
+        async function changeStatus(applicationId, newStatus) {
+            const statusText = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+            
+            if (!confirm(`Are you sure you want to ${statusText.toLowerCase()} this application?`)) {
+                return;
+            }
+            
+            try {
+                debugLog(`Updating application ${applicationId} to ${newStatus}...`);
+                await updateApplicationStatus(applicationId, newStatus);
+                debugLog(`Application ${statusText.toLowerCase()} successfully!`, 'success');
+                alert(`✓ Application ${statusText.toLowerCase()} successfully!`);
+                
+                // Reload applications
+                await loadApplications();
+                await loadStatistics();
+                
+            } catch (error) {
+                debugLog(`Error updating application: ${error.message}`, 'error');
+                console.error('Error updating application:', error);
+                alert('✗ Failed to update application: ' + error.message);
+            }
+        }
+
+        // View full application + student details in modal
+        function viewDetails(id) {
+            const app = adminApplicationsById[id];
+            if (!app) {
+                alert('Details not available for this application.');
+                return;
+            }
+
+            const registeredOn = app.student_created_at
+                ? new Date(app.student_created_at).toLocaleString()
+                : 'N/A';
+
+            const additionalInfoRaw = app.additional_info || '';
+            const courseName     = app.course_name || 'N/A';
+            const status         = (app.status || '').toUpperCase();
+            const applicationCode = app.application_id || app.id;
+
+            // Populate modal fields
+            document.getElementById('detailStudentName').textContent = app.student_name || 'N/A';
+            document.getElementById('detailStudentId').textContent   = app.student_id || 'N/A';
+            document.getElementById('detailEmail').textContent       = app.student_email || 'N/A';
+            document.getElementById('detailPhone').textContent       = app.student_phone || 'N/A';
+            document.getElementById('detailRegisteredOn').textContent= registeredOn;
+            document.getElementById('detailApplicationId').textContent = applicationCode;
+            document.getElementById('detailCourse').textContent      = courseName;
+            document.getElementById('detailStatus').textContent      = status;
+
+            // Render additional info in a human-friendly way
+            const additionalInfoContainer = document.getElementById('detailAdditionalInfo');
+            additionalInfoContainer.innerHTML = '';
+
+            if (!additionalInfoRaw) {
+                additionalInfoContainer.textContent = 'N/A';
+            } else {
+                let parsed = null;
+                try {
+                    parsed = JSON.parse(additionalInfoRaw);
+                } catch (e) {
+                    parsed = null;
+                }
+
+                if (parsed && typeof parsed === 'object') {
+                    // Render key/value pairs as a small table
+                    const table = document.createElement('table');
+                    table.style.width = '100%';
+                    table.style.borderCollapse = 'collapse';
+                    table.style.fontSize = '14px';
+
+                    Object.entries(parsed).forEach(([key, value]) => {
+                        const row = document.createElement('tr');
+
+                        const keyCell = document.createElement('td');
+                        keyCell.textContent = key.replace(/_/g, ' ');
+                        keyCell.style.fontWeight = '600';
+                        keyCell.style.padding = '6px 8px';
+                        keyCell.style.borderBottom = '1px solid #eee';
+                        keyCell.style.width = '35%';
+
+                        const valueCell = document.createElement('td');
+                        valueCell.textContent = value === null || value === undefined || value === '' ? '—' : String(value);
+                        valueCell.style.padding = '6px 8px';
+                        valueCell.style.borderBottom = '1px solid #eee';
+
+                        row.appendChild(keyCell);
+                        row.appendChild(valueCell);
+                        table.appendChild(row);
+                    });
+
+                    additionalInfoContainer.appendChild(table);
+                } else {
+                    // Fallback: plain text with line breaks
+                    const pre = document.createElement('pre');
+                    pre.style.whiteSpace = 'pre-wrap';
+                    pre.style.margin = '0';
+                    pre.textContent = additionalInfoRaw;
+                    additionalInfoContainer.appendChild(pre);
+                }
+            }
+
+            // Show modal
+            const modal = document.getElementById('applicationDetailsModal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeApplicationDetailsModal() {
+            const modal = document.getElementById('applicationDetailsModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        // Cache for contact messages so we can show full details in a modal
+        let contactMessagesById = {};
+
+        // Load contact messages
+        async function loadContactMessages() {
+            try {
+                debugLog('Calling getAllContactMessages()...');
+                const result = await getAllContactMessages();
+                const messages = result.messages || [];
+                debugLog(`Received ${messages.length} contact messages`, 'success');
+                
+                const container = document.getElementById('contactMessagesList');
+                
+                if (messages.length === 0) {
+                    debugLog('No contact messages found', 'info');
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 20px; color: #666;">
+                            <i class="fa fa-inbox" style="font-size: 30px; display: block; margin-bottom: 10px;"></i>
+                            No contact messages yet
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Cache all messages by ID
+                contactMessagesById = {};
+                messages.forEach(msg => {
+                    contactMessagesById[msg.id] = msg;
+                });
+
+                // Show recent 5 messages
+                const recentMessages = messages.slice(0, 5);
+                debugLog(`Displaying ${recentMessages.length} recent messages`, 'info');
+                
+                container.innerHTML = '';
+                recentMessages.forEach(msg => {
+                    const activityItem = document.createElement('div');
+                    activityItem.className = 'activity-item';
+                    activityItem.innerHTML = `
+                        <div class="activity-icon blue">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <div class="activity-content" onclick="viewContactMessage(${msg.id})" style="cursor:pointer;">
+                            <h4>${msg.name}</h4>
+                            <p><strong>Subject:</strong> ${msg.subject}</p>
+                            <p>${msg.message.substring(0, 100)}${msg.message.length > 100 ? '...' : ''}</p>
+                            <small><i class="fa fa-envelope"></i> ${msg.email} | ${formatDate(msg.created_at)}</small>
+                        </div>
+                    `;
+                    container.appendChild(activityItem);
+                });
+                
+                debugLog('Contact messages loaded successfully', 'success');
+                
+            } catch (error) {
+                debugLog(`Error in loadContactMessages: ${error.message}`, 'error');
+                console.error('Error loading contact messages:', error);
+                document.getElementById('contactMessagesList').innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #e74c3c;">
+                        <i class="fa fa-exclamation-triangle"></i> Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function viewContactMessage(id) {
+            const msg = contactMessagesById[id];
+            if (!msg) {
+                alert('Message details not available.');
+                return;
+            }
+
+            const createdOn = msg.created_at ? formatDate(msg.created_at) : 'N/A';
+
+            // Populate modal fields
+            document.getElementById('contactDetailName').textContent    = msg.name || 'N/A';
+            document.getElementById('contactDetailEmail').textContent   = msg.email || 'N/A';
+            document.getElementById('contactDetailPhone').textContent   = msg.phone || 'N/A';
+            document.getElementById('contactDetailDate').textContent    = createdOn;
+            document.getElementById('contactDetailSubject').textContent = msg.subject || 'N/A';
+            document.getElementById('contactDetailMessage').textContent = msg.message || 'N/A';
+
+            const modal = document.getElementById('contactDetailsModal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeContactDetailsModal() {
+            const modal = document.getElementById('contactDetailsModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        // Update recent activities from applications
+        function updateRecentActivities(applications) {
+            const container = document.getElementById('recentActivitiesList');
+            
+            if (applications.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        <i class="fa fa-inbox" style="font-size: 30px; display: block; margin-bottom: 10px;"></i>
+                        No recent activities
+                    </div>
+                `;
+                return;
+            }
+            
+            // Show recent 5 activities
+            const recentActivities = applications.slice(0, 5);
+            
+            container.innerHTML = '';
+            recentActivities.forEach(app => {
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+                
+                let iconClass = 'blue';
+                let iconName = 'file-text';
+                let actionText = 'New Application';
+                
+                if (app.status === 'approved') {
+                    iconClass = 'green';
+                    iconName = 'check-circle';
+                    actionText = 'Application Approved';
+                } else if (app.status === 'rejected') {
+                    iconClass = 'red';
+                    iconName = 'times-circle';
+                    actionText = 'Application Rejected';
+                } else if (app.status === 'review') {
+                    iconClass = 'orange';
+                    iconName = 'eye';
+                    actionText = 'Under Review';
+                }
+                
+                activityItem.innerHTML = `
+                    <div class="activity-icon ${iconClass}">
+                        <i class="fa fa-${iconName}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>${actionText}</h4>
+                        <p>${app.student_name} - ${app.course_name}</p>
+                        <small>${formatDate(app.created_at)}</small>
+                    </div>
+                `;
+                container.appendChild(activityItem);
+            });
+        }
+
+        // Helper function to format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diff = now - date;
+            
+            // Less than 1 hour
+            if (diff < 3600000) {
+                const minutes = Math.floor(diff / 60000);
+                return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+            }
+            
+            // Less than 1 day
+            if (diff < 86400000) {
+                const hours = Math.floor(diff / 3600000);
+                return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+            }
+            
+            // Less than 1 week
+            if (diff < 604800000) {
+                const days = Math.floor(diff / 86400000);
+                return `${days} day${days !== 1 ? 's' : ''} ago`;
+            }
+            
+            // Otherwise show date
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // ==================== MANAGE ADMINS (CREATE / LIST / CHANGE PASSWORD) ====================
+
+        // Open/close Add Admin modal
+        function openAddAdminModal() {
+            const modal = document.getElementById('addAdminModal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeAddAdminModal(event) {
+            const modal = document.getElementById('addAdminModal');
+            if (!modal) return;
+
+            // Only close when the click landed directly on the dark backdrop.
+            // Clicks inside the white box bubble up to the overlay, but
+            // event.target still points to the original element clicked,
+            // so we compare it against the overlay element itself.
+            if (event && event.target !== modal) return;
+
+            modal.style.display = 'none';
+        }
+
+        // Load admins into the Manage Admins table
+        async function loadAdmins() {
+            try {
+                debugLog('Loading admin list...');
+                if (typeof listAdmins !== 'function') {
+                    debugLog('ERROR: listAdmins() not found in api.js', 'error');
+                    return;
+                }
+
+                const result = await listAdmins();
+                const admins = result.admins || [];
+                debugLog(`Received ${admins.length} admins`, 'success');
+
+                const tbody = document.getElementById('adminsTableBody');
+                if (!tbody) return;
+
+                const totalAdmins = admins.length;
+                const currentUser = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+
+                if (admins.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" style="text-align:center;padding:40px;color:#666;">
+                                <i class="fa fa-inbox" style="font-size:30px;display:block;margin-bottom:10px;"></i>
+                                No admins found yet
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                admins.forEach((admin) => {
+                    const row = document.createElement('tr');
+
+                    const isLastAdmin = totalAdmins <= 1;
+                    const canDelete = !isLastAdmin; // disabled when only one admin is left
+
+                    const deleteButtonHtml = canDelete
+                        ? `<button class="action-icon reject" onclick="handleDeleteAdmin(${admin.id})" title="Delete admin">
+                               <i class="fa fa-trash"></i>
+                           </button>`
+                        : `<button class="action-icon reject" disabled title="Cannot delete the last remaining admin" style="opacity:0.5;cursor:not-allowed;">
+                               <i class="fa fa-trash"></i>
+                           </button>`;
+
+                    row.innerHTML = `
+                        <td>${admin.name}</td>
+                        <td>${admin.email}</td>
+                        <td>${admin.phone || '-'}</td>
+                        <td><span class="status-pill approved">ACTIVE</span></td>
+                        <td>${admin.created_at ? formatDate(admin.created_at) : '-'}</td>
+                        <td>${deleteButtonHtml}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                debugLog(`Error loading admins: ${error.message}`, 'error');
+                console.error('Error loading admins:', error);
+                const tbody = document.getElementById('adminsTableBody');
+                if (tbody) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" style="text-align:center;padding:40px;color:#e74c3c;">
+                                <i class="fa fa-exclamation-triangle" style="font-size:30px;display:block;margin-bottom:10px;"></i>
+                                Failed to load admins: ${error.message}
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
+        }
+
+        // Handle Add Admin form submission
+        const addAdminForm = document.getElementById('addAdminForm');
+        if (addAdminForm) {
+            addAdminForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const nameInput = document.getElementById('newAdminName');
+                const emailInput = document.getElementById('newAdminEmail');
+                const phoneInput = document.getElementById('newAdminPhone');
+                const submitBtn = document.getElementById('addAdminSubmitBtn');
+
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim().toLowerCase();
+                const phone = phoneInput.value.trim() || null;
+
+                if (!name || !email) {
+                    alert('Please provide name and email for the new admin.');
+                    return;
+                }
+
+                try {
+                    if (typeof createAdmin !== 'function') {
+                        debugLog('ERROR: createAdmin() not found in api.js', 'error');
+                        alert('Admin API not available. Please check api.js.');
+                        return;
+                    }
+
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Creating...';
+
+                    debugLog(`Creating admin: ${name} (${email})...`);
+                    const result = await createAdmin(name, email, phone);
+                    debugLog(`Admin created: ${JSON.stringify(result.admin)}`, 'success');
+
+                    // Show temp password ONCE in an alert so admin can share it
+                    const tempPassword = result.tempPassword;
+                    closeAddAdminModal();
+                    addAdminForm.reset();
+
+                    let message = `New admin created successfully.\n\nName: ${result.admin.name}\nEmail: ${result.admin.email}`;
+                    if (tempPassword) {
+                        message += `\n\nTemporary Password (copy and share now, it will not be shown again):\n${tempPassword}`;
+                    }
+                    alert(message);
+
+                    // Refresh admin list
+                    await loadAdmins();
+                } catch (error) {
+                    debugLog(`Error creating admin: ${error.message}`, 'error');
+                    console.error('Error creating admin:', error);
+                    alert('Failed to create admin: ' + error.message);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa fa-user-plus"></i> Create Admin';
+                }
+            });
+        }
+
+        // Handle change password form for current admin
+        const changePasswordForm = document.getElementById('changePasswordForm');
+        if (changePasswordForm) {
+            changePasswordForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+                const msgBox = document.getElementById('passwordChangeMsg');
+
+                msgBox.style.display = 'none';
+                msgBox.textContent = '';
+
+                if (!currentPassword || !newPassword || !confirmNewPassword) {
+                    msgBox.style.display = 'block';
+                    msgBox.style.background = '#fdecea';
+                    msgBox.style.color = '#c0392b';
+                    msgBox.textContent = 'Please fill in all password fields.';
+                    return;
+                }
+
+                if (newPassword.length < 6) {
+                    msgBox.style.display = 'block';
+                    msgBox.style.background = '#fdecea';
+                    msgBox.style.color = '#c0392b';
+                    msgBox.textContent = 'New password must be at least 6 characters long.';
+                    return;
+                }
+
+                if (newPassword !== confirmNewPassword) {
+                    msgBox.style.display = 'block';
+                    msgBox.style.background = '#fdecea';
+                    msgBox.style.color = '#c0392b';
+                    msgBox.textContent = 'New password and confirmation do not match.';
+                    return;
+                }
+
+                try {
+                    if (typeof changeAdminPassword !== 'function') {
+                        debugLog('ERROR: changeAdminPassword() not found in api.js', 'error');
+                        msgBox.style.display = 'block';
+                        msgBox.style.background = '#fdecea';
+                        msgBox.style.color = '#c0392b';
+                        msgBox.textContent = 'Password API not available. Please check api.js.';
+                        return;
+                    }
+
+                    debugLog('Changing admin password...');
+                    await changeAdminPassword(currentPassword, newPassword);
+
+                    msgBox.style.display = 'block';
+                    msgBox.style.background = '#e8f8f5';
+                    msgBox.style.color = '#16a085';
+                    msgBox.textContent = 'Password updated successfully.';
+
+                    // Clear fields
+                    document.getElementById('currentPassword').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmNewPassword').value = '';
+                } catch (error) {
+                    debugLog(`Error changing password: ${error.message}`, 'error');
+                    console.error('Error changing password:', error);
+                    msgBox.style.display = 'block';
+                    msgBox.style.background = '#fdecea';
+                    msgBox.style.color = '#c0392b';
+                    msgBox.textContent = error.message || 'Failed to update password.';
+                }
+            });
+        }
+
+        // Delete admin handler
+        async function handleDeleteAdmin(adminId) {
+            try {
+                const tbody = document.getElementById('adminsTableBody');
+                if (!tbody) return;
+
+                const currentUser = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+                const isSelfDelete = currentUser && Number(currentUser.id) === Number(adminId);
+
+                // Simple guard: if only one row (excluding header), don't allow delete
+                const rows = tbody.querySelectorAll('tr');
+                if (rows.length <= 1) {
+                    alert('Cannot delete the last remaining admin.');
+                    return;
+                }
+
+                if (!confirm('Are you sure you want to delete this admin?')) {
+                    return;
+                }
+
+                await deleteAdmin(adminId);
+
+                if (isSelfDelete) {
+                    alert('Your admin account was deleted. You will be logged out.');
+                    // This will clear token and redirect to login
+                    if (typeof logout === 'function') {
+                        logout();
+                    } else {
+                        window.location.href = 'login.html';
+                    }
+                } else {
+                    alert('Admin deleted successfully.');
+                    await loadAdmins();
+                }
+            } catch (error) {
+                debugLog(`Error deleting admin: ${error.message}`, 'error');
+                console.error('Error deleting admin:', error);
+                alert(error.message || 'Failed to delete admin.');
+            }
+        }
+
+        // After dashboard data, also load admins on initial page load
+        // (We call this after authentication succeeds)
+        const originalLoadDashboardData = loadDashboardData;
+        loadDashboardData = async function () {
+            await originalLoadDashboardData();
+            await loadAdmins();
+        };
+
+        // ==================== SIDEBAR NAVIGATION (ANCHOR SCROLL + ACTIVE STATE) ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebarLinks = document.querySelectorAll('.admin-menu a[href^="#"]');
+
+            sidebarLinks.forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetEl = document.getElementById(targetId);
+                    if (!targetEl) return;
+
+                    e.preventDefault();
+
+                    // Smooth scroll to the section
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Update active state on sidebar items
+                    const allItems = document.querySelectorAll('.admin-menu li');
+                    allItems.forEach((li) => li.classList.remove('active'));
+                    if (link.parentElement) {
+                        link.parentElement.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

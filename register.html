@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - EduNova University</title>
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <script src="js/api.js"></script>
+
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check">
+          <i  class="fa fa-bars" id="checkbtn"></i>
+          <i  class="fa fa-close" id="cancel"></i>
+        </label>
+        <img src="logo2.jpg" class="logo">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="home.html#testimonials">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="login.html">Log In</a></li>
+          <li> <input type="text" placeholder="Search Course" required></li>
+        </ul>
+    </nav>
+
+    <!-- Registration Section -->
+    <div class="login-container">
+        <div class="login-wrapper">
+            <!-- Left Side - Registration Form -->
+            <div class="login-form-section">
+                <div class="login-header">
+                    <h1>Create Account</h1>
+                    <p>Register to access your student portal</p>
+                </div>
+
+                <form class="login-form" id="register-form">
+                    <!-- Role Selection -->
+                    <div class="role-tabs">
+                        <button type="button" class="role-tab active" onclick="switchRole('student')">
+                            <i class="fa fa-user"></i> Student
+                        </button>
+                        
+                        <button type="button" class="role-tab" onclick="switchRole('admin')">
+                            <i class="fa fa-cog"></i> Admin
+                        </button>
+                    </div>
+
+                    <!-- Full Name Input -->
+                    <div class="form-group">
+                        <label for="fullname">
+                            <i class="fa fa-user"></i> Full Name
+                        </label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fa fa-envelope"></i> Email Address
+                        </label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <!-- Auto-generated Student ID Display (for students only) -->
+                    <div class="form-group" id="studentid-display" style="display: block;">
+                        <label>
+                            <i class="fa fa-id-card"></i> Student ID
+                        </label>
+                        <div style="padding: 12px; background-color: #f0f0f0; border-radius: 8px; border: 1px solid #ddd;">
+                            <span style="color: #666; font-size: 14px;">
+                                <i class="fa fa-info-circle"></i> Your Student ID will be automatically assigned after registration
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fa fa-lock"></i> Password
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Create a password" required minlength="6">
+                            <i class="fa fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                        </div>
+                        <small style="color: #666; font-size: 12px;">Password must be at least 6 characters</small>
+                    </div>
+
+                    <!-- Confirm Password Input -->
+                    <div class="form-group">
+                        <label for="confirm-password">
+                            <i class="fa fa-lock"></i> Confirm Password
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                            <i class="fa fa-eye toggle-password" onclick="togglePassword('confirm-password')"></i>
+                        </div>
+                    </div>
+
+                    <!-- Terms & Conditions -->
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="terms" id="terms" required>
+                            <span>I agree to the <a href="#" style="color: #007bff;">Terms & Conditions</a></span>
+                        </label>
+                    </div>
+
+                    <!-- Register Button -->
+                    <button type="submit" class="login-btn">
+                        <i class="fa fa-user-plus"></i> Create Account
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span>OR</span>
+                    </div>
+
+                    <!-- Social Registration -->
+                    <!-- <div class="social-login">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i> Sign up with Google
+                        </button>
+                        <button type="button" class="social-btn microsoft">
+                            <i class="fab fa-microsoft"></i> Sign up with Microsoft
+                        </button>
+                    </div> -->
+
+                    <!-- Login Link -->
+                    <div class="register-link">
+                        <p>Already have an account? <a href="login.html">Login Now</a></p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Side - Info Section -->
+            <div class="login-info-section">
+                <div class="info-content">
+                    <div class="info-icon">
+                        <img src="logo1.png">
+                    </div>
+                    <h2>EduNova University</h2>
+                    <p>Registration Portal</p>
+                    
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Quick Registration</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Access to All Courses</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Personalized Dashboard</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Secure & Private</span>
+                        </div>
+                    </div>
+
+                    <div class="help-section">
+                        <p><i class="fa fa-question-circle"></i> Need Help?</p>
+                        <a href="contact.html">Contact Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="conn">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>User Links</h4>
+                        <ul>
+                            <li><a href="home.html" >Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="#testimonials">Testimonials</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="login.html">Log In</a></li>
+                        </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Core Values</h4>
+                        <ul>
+                            <li><a>Excellence</a></li>
+                            <li><a>Integrity</a></li>
+                            <li><a>Diversity</a></li>
+                            <li><a>Innovation</a></li>
+                        </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Courses</h4>
+                        <ul>
+                            <li><a>UI/UX Designer Courses</a></li>
+                            <li><a>PHP Shopify Courses</a></li>
+                            <li><a>Photoshop Web DESIGN</a></li>
+                            <li><a>Sketch Mobile App</a></li>
+                        </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/"><i class="fab fa-x"></i></a>
+                            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                            <a href="https://in.linkedin.com/"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+   <script>
+       // Function to generate next student ID
+       function generateStudentId() {
+           const users = JSON.parse(localStorage.getItem('users') || '[]');
+           
+           // Filter only students and get their IDs
+           const studentIds = users
+               .filter(u => u.role === 'student' && u.studentId)
+               .map(u => u.studentId);
+           
+           if (studentIds.length === 0) {
+               // If no students exist, start from STU00002 (since STU00001 already exists)
+               return 'STU00002';
+           }
+           
+           // Extract numbers from student IDs and find the maximum
+           const numbers = studentIds.map(id => {
+               const match = id.match(/STU(\d+)/);
+               return match ? parseInt(match[1]) : 0;
+           });
+           
+           const maxNumber = Math.max(...numbers);
+           const nextNumber = maxNumber + 1;
+           
+           // Format with leading zeros (e.g., STU00003)
+           return 'STU' + nextNumber.toString().padStart(5, '0');
+       }
+
+       // Switch between Student, Admin roles
+       function switchRole(role) {
+           const tabs = document.querySelectorAll('.role-tab');
+           tabs.forEach(tab => tab.classList.remove('active'));
+           event.target.closest('.role-tab').classList.add('active');
+           
+           // Show/hide student ID display based on role
+           const studentIdDisplay = document.getElementById('studentid-display');
+           
+           if (role === 'admin') {
+               studentIdDisplay.style.display = 'none';
+           } else {
+               studentIdDisplay.style.display = 'block';
+           }
+           
+           console.log('Switched to:', role);
+       }
+
+       // Toggle password visibility
+       function togglePassword(fieldId) {
+           const passwordInput = document.getElementById(fieldId);
+           const toggleIcon = passwordInput.nextElementSibling;
+           
+           if (passwordInput.type === 'password') {
+               passwordInput.type = 'text';
+               toggleIcon.classList.remove('fa-eye');
+               toggleIcon.classList.add('fa-eye-slash');
+           } else {
+               passwordInput.type = 'password';
+               toggleIcon.classList.remove('fa-eye-slash');
+               toggleIcon.classList.add('fa-eye');
+           }
+       }
+
+       // Handle registration form submission
+       document.getElementById('register-form').addEventListener('submit', async (e) => {
+           e.preventDefault();
+           
+           // Get form values
+           const fullname = document.getElementById('fullname').value.trim();
+           const email = document.getElementById('email').value.trim().toLowerCase();
+           const password = document.getElementById('password').value;
+           const confirmPassword = document.getElementById('confirm-password').value;
+           const role = document.querySelector('.role-tab.active').textContent.toLowerCase().includes('admin') ? 'admin' : 'student';
+           const termsAccepted = document.getElementById('terms').checked;
+           
+           // Validation
+           if (password !== confirmPassword) {
+               alert('Passwords do not match!');
+               return;
+           }
+           
+           if (password.length < 6) {
+               alert('Password must be at least 6 characters long!');
+               return;
+           }
+           
+           if (!termsAccepted) {
+               alert('Please accept the Terms & Conditions!');
+               return;
+           }
+           
+           // Generate student ID only for students
+           const studentId = role === 'student' ? generateStudentId() : null;
+           
+           console.log('Attempting registration with:', { fullname, email, studentId, role });
+           
+           try {
+               // Check if register function exists in api.js
+               if (typeof register === 'function') {
+                   const result = await register(fullname, email, password, studentId, role);
+                   console.log('Registration result:', result);
+                   
+                   if (role === 'student') {
+                       alert(`Registration successful! Your Student ID is: ${result.studentId || studentId}\n\nPlease login with your email and password.`);
+                   } else {
+                       alert('Registration successful! Please login with your credentials.');
+                   }
+                   
+                   window.location.href = 'login.html';
+               } else {
+                   // Fallback: Store user data in localStorage if API is not available
+                   const users = JSON.parse(localStorage.getItem('users') || '[]');
+                   
+                   // Initialize with existing student if not present
+                   if (users.length === 0) {
+                       users.push({
+                           fullname: 'Existing Student',
+                           email: 'student@edunova.edu',
+                           password: 'student123',
+                           studentId: 'STU00001',
+                           role: 'student',
+                           createdAt: '2026-01-01T00:00:00.000Z'
+                       });
+                   }
+                   
+                   // Check if user already exists
+                   if (users.some(u => u.email === email)) {
+                       alert('User with this email already exists!');
+                       return;
+                   }
+                   
+                   // Add new user
+                   const newUser = {
+                       fullname,
+                       email,
+                       password, // In production, this should be hashed!
+                       studentId,
+                       role,
+                       createdAt: new Date().toISOString()
+                   };
+                   
+                   users.push(newUser);
+                   localStorage.setItem('users', JSON.stringify(users));
+                   
+                   if (role === 'student') {
+                       alert(`Registration successful! Your Student ID is: ${studentId}\n\nPlease save this ID and login with your email and password.`);
+                   } else {
+                       alert('Registration successful! Please login with your credentials.');
+                   }
+                   
+                   window.location.href = 'login.html';
+               }
+           } catch (error) {
+               console.error('Registration error:', error);
+               alert('Registration failed: ' + error.message);
+           }
+       });
+   </script>
+</body>
+</html>

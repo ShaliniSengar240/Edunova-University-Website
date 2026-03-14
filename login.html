@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EduNova University</title>
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <script src="js/api.js"></script>
+    <script>
+        // If already logged in, skip the login page and go to the appropriate dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof isLoggedIn === 'function' && isLoggedIn()) {
+                const user = getCurrentUser();
+                if (user && user.role === 'admin') {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
+            }
+        });
+    </script>
+
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check">
+          <i  class="fa fa-bars" id="checkbtn"></i>
+          <i  class="fa fa-close" id="cancel"></i>
+        </label>
+        <img src="logo2.jpg" class="logo">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="home.html#testimonials">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="login.html">Log In</a></li>
+          <li> <input type="text" placeholder="Search Course" required></li>
+        </ul>
+    </nav>
+
+    <!-- Login Section -->
+    <div class="login-container">
+        <div class="login-wrapper">
+            <!-- Left Side - Login Form -->
+            <div class="login-form-section">
+                <div class="login-header">
+                    <h1>Welcome Back</h1>
+                    <p>Login to access your student portal</p>
+                </div>
+
+                <form class="login-form">
+                    <!-- Role Selection -->
+                    <div class="role-tabs">
+                        <button type="button" class="role-tab active" onclick="switchRole('student')">
+                            <i class="fa fa-user"></i> Student
+                        </button>
+                        
+                        <button type="button" class="role-tab" onclick="switchRole('admin')">
+                            <i class="fa fa-cog"></i> Admin
+                        </button>
+                    </div>
+
+                    <!-- Email/Username Input -->
+                    <div class="form-group">
+                        <label for="username">
+                            <i class="fa fa-envelope"></i> Email 
+                        </label>
+                        <input type="text" id="username" name="username" placeholder="Enter your email or student ID" required>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fa fa-lock"></i> Password
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button type="submit" class="login-btn">
+                        <i class="fa fa-sign-in"></i> Login
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span>OR</span>
+                    </div>
+
+                    <!-- Social Login -->
+                    <!-- <div class="social-login">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i> Login with Google
+                        </button>
+                        <button type="button" class="social-btn microsoft">
+                            <i class="fab fa-microsoft"></i> Login with Microsoft
+                        </button>
+                    </div> -->
+
+                   <!-- Register Link -->
+                    <div class="register-link">
+                        <p>Don't have an account? <a href="register.html">Register Now</a></p>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Right Side - Info Section -->
+            <div class="login-info-section">
+                <div class="info-content">
+                    <div class="info-icon">
+                        <img src="logo1.png">
+                    </div>
+                    <h2>EduNova University</h2>
+                    <p>Login Portal</p>
+                    
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Apply for Courses</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>View Your Courses</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Manage Your Courses</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Connect with Us</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Access Resources</span>
+                        </div>
+                    </div>
+
+                    <div class="help-section">
+                        <p><i class="fa fa-question-circle"></i> Need Help?</p>
+                        <a href="contact.html">Contact Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+     <footer class="footer">
+        <div class="conn">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>User Links</h4>
+                        <ul>
+                            <li><a href="home.html" >Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="#testimonials">Testimonials</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="login.html">Log In</a></li>
+                        </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Core Values</h4>
+                        <ul>
+                            <li><a>Excellence</a></li>
+                            <li><a>Integrity</a></li>
+                            <li><a>Diversity</a></li>
+                            <li><a>Innovation</a></li>
+                        </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Courses</h4>
+                        <ul>
+                            <li><a>UI/UX Designer Courses</a></li>
+                            <li><a>PHP Shopify Courses</a></li>
+                            <li><a>Photoshop Web DESIGN</a></li>
+                            <li><a>Sketch Mobile App</a></li>
+                        </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/"><i class="fab fa-x"></i></a>
+                            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                            <a href="https://in.linkedin.com/"><i class="fab fa-linkedin"></i></a>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+       </footer>
+
+   <script>
+       // Switch between Student, Faculty, Admin roles
+       function switchRole(role) {
+           const tabs = document.querySelectorAll('.role-tab');
+           tabs.forEach(tab => tab.classList.remove('active'));
+           event.target.closest('.role-tab').classList.add('active');
+           
+           // You can add logic here to change form behavior based on role
+           console.log('Switched to:', role);
+       }
+
+       // Toggle password visibility
+       function togglePassword() {
+           const passwordInput = document.getElementById('password');
+           const toggleIcon = document.querySelector('.toggle-password');
+           
+           if (passwordInput.type === 'password') {
+               passwordInput.type = 'text';
+               toggleIcon.classList.remove('fa-eye');
+               toggleIcon.classList.add('fa-eye-slash');
+           } else {
+               passwordInput.type = 'password';
+               toggleIcon.classList.remove('fa-eye-slash');
+               toggleIcon.classList.add('fa-eye');
+           }
+       }
+   </script>
+
+
+
+
+    <script>
+        // Handle login form submission
+        document.querySelector('.login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Normalize inputs to avoid whitespace causing "Invalid credentials"
+        let email = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        if (email.includes('@')) email = email.toLowerCase();
+        const role = document.querySelector('.role-tab.active').textContent.toLowerCase().includes('admin') ? 'admin' : 'student';
+        
+        console.log('Attempting login with:', { email, role });
+        console.log('API_BASE_URL:', typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'NOT DEFINED');
+        
+        try {
+            const result = await login(email, password, role);
+            console.log('Login result:', result);
+            alert('Login successful!');
+            
+            // Redirect based on role
+            if (result.user.role === 'admin') {
+                window.location.href = 'admin.html';
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        } catch (error) {
+            console.error('Login error details:', error);
+            alert('Login failed: ' + error.message);
+        }
+    });
+    </script>
+
+    
+
+</body>
+</html>

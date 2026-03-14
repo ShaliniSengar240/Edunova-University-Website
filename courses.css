@@ -1,0 +1,401 @@
+/* Courses Page Styles */
+
+/* Hero Section */
+.courses-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(courses1.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.courses-hero .hero-content {
+    text-align: center;
+    color: white;
+}
+
+.courses-hero h1 {
+    font-size: 55px;
+    margin-bottom: 15px;
+    font-weight: 900;
+}
+
+.courses-hero p {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+/* Programs Overview */
+.programs-overview {
+    background-color: white;
+    padding: 60px 20px;
+}
+
+.overview-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.overview-container h2 {
+    color: rgb(10, 10, 110);
+    font-size: 40px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.overview-container p {
+    color: #555;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+/* Programs Section */
+.programs-section {
+    padding: 80px 60px;
+    background-color: #f8f9fa;
+}
+
+.masters-section {
+    padding: 80px 60px;
+    background-color: white;
+}
+
+.programs-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    color: rgb(10, 10, 110);
+    font-size: 45px;
+    margin-bottom: 15px;
+    font-weight: 900;
+}
+
+.title-underline {
+    width: 100px;
+    height: 4px;
+    background: maroon;
+    margin: 0 auto 20px;
+}
+
+.section-title p {
+    color: #666;
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Programs Grid */
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Program Card */
+.program-card {
+    background: white;
+    border-radius: 10px;
+    padding: 35px 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-top: 4px solid rgb(10, 10, 110);
+}
+
+.program-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.program-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, rgb(10, 10, 110), rgb(63, 38, 163));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.program-icon i {
+    font-size: 35px;
+    color: white;
+}
+
+.program-card h3 {
+    color: rgb(10, 10, 110);
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    min-height: 60px;
+}
+
+.duration {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.duration i {
+    color: maroon;
+    margin-right: 5px;
+}
+
+.fee {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.fee i {
+    color: maroon;
+    margin-right: 6px;
+}
+
+.description {
+    color: #555;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.highlights {
+    list-style: none;
+    margin-bottom: 25px;
+    padding: 0;
+}
+
+.highlights li {
+    color: #666;
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 25px;
+}
+
+.highlights li:before {
+    content: "✓";
+    color: maroon;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.highlights li:last-child {
+    border-bottom: none;
+}
+
+.apply-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(10, 10, 110);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.apply-btn:hover {
+    background-color: maroon;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(128, 0, 0, 0.3);
+}
+
+/* Call to Action Section */
+.cta-section {
+    background: linear-gradient(135deg, rgb(5, 5, 77), rgb(24, 9, 87));
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.cta-content h2 {
+    color: white;
+    font-size: 45px;
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+
+.cta-content p {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 35px;
+    opacity: 0.9;
+}
+
+.cta-btn {
+    padding: 20px 50px;
+    background-color: white;
+    color: rgb(10, 10, 110);
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: maroon;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .courses-hero h1 {
+        font-size: 45px;
+    }
+
+    .courses-hero p {
+        font-size: 20px;
+    }
+
+    .programs-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    .section-title h2 {
+        font-size: 40px;
+    }
+
+    .cta-content h2 {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 768px) {
+    .courses-hero {
+        height: 350px;
+    }
+
+    .courses-hero h1 {
+        font-size: 38px;
+    }
+
+    .courses-hero p {
+        font-size: 18px;
+        padding: 0 20px;
+    }
+
+    .programs-overview {
+        padding: 40px 20px;
+    }
+
+    .overview-container h2 {
+        font-size: 32px;
+    }
+
+    .overview-container p {
+        font-size: 16px;
+    }
+
+    .programs-section {
+        padding: 60px 15px;
+    }
+
+    .section-title h2 {
+        font-size: 35px;
+    }
+
+    .section-title p {
+        font-size: 16px;
+    }
+
+    .programs-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .program-card h3 {
+        font-size: 22px;
+        min-height: auto;
+    }
+
+    .cta-section {
+        padding: 60px 20px;
+    }
+
+    .cta-content h2 {
+        font-size: 32px;
+    }
+
+    .cta-content p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .courses-hero {
+        height: 300px;
+    }
+
+    .courses-hero h1 {
+        font-size: 30px;
+    }
+
+    .courses-hero p {
+        font-size: 16px;
+    }
+
+    .overview-container h2 {
+        font-size: 28px;
+    }
+
+    .section-title h2 {
+        font-size: 28px;
+    }
+
+    .programs-section {
+        padding: 40px 15px;
+    }
+
+    .program-card {
+        padding: 25px 20px;
+    }
+
+    .program-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .program-icon i {
+        font-size: 30px;
+    }
+
+    .program-card h3 {
+        font-size: 20px;
+    }
+
+    .cta-content h2 {
+        font-size: 26px;
+    }
+
+    .cta-content p {
+        font-size: 16px;
+    }
+
+    .cta-btn {
+        padding: 15px 35px;
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - EduNova University</title>
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="courses.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <!-- Include API (auth persistence via localStorage token and nav auth handling) -->
+    <script src="js/api.js"></script>
+
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check">
+          <i  class="fa fa-bars" id="checkbtn"></i>
+          <i  class="fa fa-close" id="cancel"></i>
+        </label>
+        <img src="logo2.jpg" class="logo">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="home.html#testimonials">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="login.html">Log In</a></li>
+          <li> <input type="text" placeholder="Search Course" required></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="courses-hero">
+        <div class="hero-content">
+            <h1>Our Academic Programs</h1>
+            <p>Discover your path to success with our comprehensive degree programs</p>
+        </div>
+    </div>
+
+    <!-- Programs Overview -->
+    <div class="programs-overview">
+        <div class="overview-container">
+            <h2>Explore Our Programs</h2>
+            <p>EduNova University offers a wide range of undergraduate and graduate programs designed to prepare students for successful careers in their chosen fields. Our curriculum combines theoretical knowledge with practical experience.</p>
+        </div>
+    </div>
+
+    <!-- Bachelor's Degree Programs -->
+    <section class="programs-section">
+        <div class="programs-container">
+            <div class="section-title">
+                <h2>Bachelor's Degree Programs</h2>
+                <div class="title-underline"></div>
+                <p>Undergraduate programs designed to build strong foundations for your career</p>
+            </div>
+
+            <div class="programs-grid">
+                <!-- Bachelor Program 1 -->
+                <div class="program-card" data-fee="350000">
+                    <div class="program-icon">
+                        <i class="fa fa-laptop"></i>
+                    </div>
+                    <h3>Bachelor of Computer Science</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 4 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,50,000</p>
+                    <p class="description">Master programming, algorithms, data structures, and software development. Prepare for careers in tech industry.</p>
+                    <ul class="highlights">
+                        <li>Software Engineering</li>
+                        <li>Artificial Intelligence</li>
+                        <li>Database Management</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 2 -->
+                <div class="program-card" data-fee="340000">
+                    <div class="program-icon">
+                        <i class="fa fa-briefcase"></i>
+                    </div>
+                    <h3>Bachelor of Business Administration</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 4 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,40,000</p>
+                    <p class="description">Comprehensive business education covering management, marketing, finance, and entrepreneurship.</p>
+                    <ul class="highlights">
+                        <li>Strategic Management</li>
+                        <li>Marketing & Sales</li>
+                        <li>Financial Analysis</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 3 -->
+                <div class="program-card" data-fee="320000">
+                    <div class="program-icon">
+                        <i class="fa fa-line-chart"></i>
+                    </div>
+                    <h3>Bachelor of Commerce</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 3 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,20,000</p>
+                    <p class="description">Specialized program in accounting, taxation, economics, and financial markets for commerce professionals.</p>
+                    <ul class="highlights">
+                        <li>Accounting & Taxation</li>
+                        <li>Economics</li>
+                        <li>Business Law</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 4 -->
+                <div class="program-card" data-fee="390000">
+                    <div class="program-icon">
+                        <i class="fa fa-cogs"></i>
+                    </div>
+                    <h3>Bachelor of Engineering</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 4 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,90,000</p>
+                    <p class="description">Comprehensive engineering program with specializations in mechanical, electrical, and civil engineering.</p>
+                    <ul class="highlights">
+                        <li>Mechanical Engineering</li>
+                        <li>Electrical Engineering</li>
+                        <li>Civil Engineering</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 5 -->
+                <div class="program-card" data-fee="330000">
+                    <div class="program-icon">
+                        <i class="fa fa-flask"></i>
+                    </div>
+                    <h3>Bachelor of Science</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 3 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,30,000</p>
+                    <p class="description">Explore various scientific disciplines including physics, chemistry, biology, and mathematics.</p>
+                    <ul class="highlights">
+                        <li>Physics & Chemistry</li>
+                        <li>Biotechnology</li>
+                        <li>Mathematics</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 6 -->
+                <div class="program-card" data-fee="310000">
+                    <div class="program-icon">
+                        <i class="fa fa-paint-brush"></i>
+                    </div>
+                    <h3>Bachelor of Arts</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 3 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,10,000</p>
+                    <p class="description">Liberal arts education covering humanities, social sciences, languages, and communication studies.</p>
+                    <ul class="highlights">
+                        <li>Psychology</li>
+                        <li>English Literature</li>
+                        <li>Mass Communication</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 7 -->
+                <div class="program-card" data-fee="380000">
+                    <div class="program-icon">
+                        <i class="fa fa-medkit"></i>
+                    </div>
+                    <h3>Bachelor of Pharmacy</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 4 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,80,000</p>
+                    <p class="description">Comprehensive pharmaceutical education covering drug development, pharmacology, and patient care.</p>
+                    <ul class="highlights">
+                        <li>Pharmaceutical Chemistry</li>
+                        <li>Pharmacology</li>
+                        <li>Clinical Pharmacy</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 8 -->
+                <div class="program-card" data-fee="325000">
+                    <div class="program-icon">
+                        <i class="fa fa-balance-scale"></i>
+                    </div>
+                    <h3>Bachelor of Laws (LLB)</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 3 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,25,000</p>
+                    <p class="description">Professional law degree covering constitutional law, criminal law, and legal practice fundamentals.</p>
+                    <ul class="highlights">
+                        <li>Constitutional Law</li>
+                        <li>Criminal Procedure</li>
+                        <li>Contract Law</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 9 -->
+                <div class="program-card" data-fee="400000">
+                    <div class="program-icon">
+                        <i class="fa fa-building-o"></i>
+                    </div>
+                    <h3>Bachelor of Architecture</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 5 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹4,00,000</p>
+                    <p class="description">Design and construction principles, urban planning, and sustainable architecture practices.</p>
+                    <ul class="highlights">
+                        <li>Architectural Design</li>
+                        <li>Urban Planning</li>
+                        <li>Sustainable Design</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 10 -->
+                <div class="program-card" data-fee="360000">
+                    <div class="program-icon">
+                        <i class="fa fa-camera"></i>
+                    </div>
+                    <h3>Bachelor of Design</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 4 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,60,000</p>
+                    <p class="description">Creative design program covering graphic design, product design, and user experience design.</p>
+                    <ul class="highlights">
+                        <li>Graphic Design</li>
+                        <li>UI/UX Design</li>
+                        <li>Product Design</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 11 -->
+                <div class="program-card" data-fee="315000">
+                    <div class="program-icon">
+                        <i class="fa fa-bar-chart"></i>
+                    </div>
+                    <h3>Bachelor of Statistics</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 3 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,15,000</p>
+                    <p class="description">Statistical methods, data analysis, probability theory, and research methodology for data professionals.</p>
+                    <ul class="highlights">
+                        <li>Statistical Modeling</li>
+                        <li>Data Analytics</li>
+                        <li>Research Methods</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Bachelor Program 12 -->
+                <div class="program-card" data-fee="370000">
+                    <div class="program-icon">
+                        <i class="fa fa-shield"></i>
+                    </div>
+                    <h3>Bachelor of Cybersecurity</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 4 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,70,000</p>
+                    <p class="description">Information security, network defense, ethical hacking, and cybersecurity management practices.</p>
+                    <ul class="highlights">
+                        <li>Network Security</li>
+                        <li>Ethical Hacking</li>
+                        <li>Cyber Forensics</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Master's Degree Programs -->
+    <section class="programs-section masters-section">
+        <div class="programs-container">
+            <div class="section-title">
+                <h2>Master's Degree Programs</h2>
+                <div class="title-underline"></div>
+                <p>Advanced graduate programs for specialization and career advancement</p>
+            </div>
+
+            <div class="programs-grid">
+                <!-- Master Program 1 -->
+                <div class="program-card" data-fee="360000">
+                    <div class="program-icon">
+                        <i class="fa fa-graduation-cap"></i>
+                    </div>
+                    <h3>Master of Computer Applications</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,60,000</p>
+                    <p class="description">Advanced study in software development, web technologies, mobile applications, and cloud computing.</p>
+                    <ul class="highlights">
+                        <li>Advanced Programming</li>
+                        <li>Cloud Computing</li>
+                        <li>Mobile Development</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 2 -->
+                <div class="program-card" data-fee="395000">
+                    <div class="program-icon">
+                        <i class="fa fa-building"></i>
+                    </div>
+                    <h3>Master of Business Administration</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,95,000</p>
+                    <p class="description">Executive MBA program focusing on leadership, strategic management, and business innovation.</p>
+                    <ul class="highlights">
+                        <li>Leadership Development</li>
+                        <li>Business Strategy</li>
+                        <li>Global Business</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 3 -->
+                <div class="program-card" data-fee="385000">
+                    <div class="program-icon">
+                        <i class="fa fa-database"></i>
+                    </div>
+                    <h3>Master of Data Science</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,85,000</p>
+                    <p class="description">Specialized program in data analytics, machine learning, big data, and statistical modeling.</p>
+                    <ul class="highlights">
+                        <li>Machine Learning</li>
+                        <li>Big Data Analytics</li>
+                        <li>Statistical Modeling</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 4 -->
+                <div class="program-card" data-fee="335000">
+                    <div class="program-icon">
+                        <i class="fa fa-university"></i>
+                    </div>
+                    <h3>Master of Arts in Economics</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,35,000</p>
+                    <p class="description">Advanced economic theory, econometrics, and policy analysis for careers in research and consulting.</p>
+                    <ul class="highlights">
+                        <li>Econometrics</li>
+                        <li>Development Economics</li>
+                        <li>Policy Analysis</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 5 -->
+                <div class="program-card" data-fee="345000">
+                    <div class="program-icon">
+                        <i class="fa fa-heartbeat"></i>
+                    </div>
+                    <h3>Master of Public Health</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,45,000</p>
+                    <p class="description">Comprehensive public health education covering epidemiology, health policy, and community health.</p>
+                    <ul class="highlights">
+                        <li>Epidemiology</li>
+                        <li>Health Policy</li>
+                        <li>Community Health</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 6 -->
+                <div class="program-card" data-fee="390000">
+                    <div class="program-icon">
+                        <i class="fa fa-rocket"></i>
+                    </div>
+                    <h3>Master of Technology</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,90,000</p>
+                    <p class="description">Advanced engineering with specializations in AI, robotics, and emerging technologies.</p>
+                    <ul class="highlights">
+                        <li>Artificial Intelligence</li>
+                        <li>Robotics</li>
+                        <li>IoT Systems</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 7 -->
+                <div class="program-card" data-fee="375000">
+                    <div class="program-icon">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <h3>Master of Finance</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,75,000</p>
+                    <p class="description">Advanced financial management, investment strategies, corporate finance, and risk management.</p>
+                    <ul class="highlights">
+                        <li>Investment Banking</li>
+                        <li>Portfolio Management</li>
+                        <li>Financial Modeling</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 8 -->
+                <div class="program-card" data-fee="325000">
+                    <div class="program-icon">
+                        <i class="fa fa-child"></i>
+                    </div>
+                    <h3>Master of Social Work</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,25,000</p>
+                    <p class="description">Social welfare, community development, counseling, and policy advocacy for social change.</p>
+                    <ul class="highlights">
+                        <li>Clinical Social Work</li>
+                        <li>Community Development</li>
+                        <li>Policy Advocacy</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 9 -->
+                <div class="program-card" data-fee="330000">
+                    <div class="program-icon">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <h3>Master of International Relations</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,30,000</p>
+                    <p class="description">Global politics, diplomacy, international law, and cross-cultural communication studies.</p>
+                    <ul class="highlights">
+                        <li>Diplomacy</li>
+                        <li>International Law</li>
+                        <li>Global Politics</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 10 -->
+                <div class="program-card" data-fee="320000">
+                    <div class="program-icon">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <h3>Master of Education</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,20,000</p>
+                    <p class="description">Educational leadership, curriculum development, pedagogy, and instructional design methodologies.</p>
+                    <ul class="highlights">
+                        <li>Curriculum Design</li>
+                        <li>Educational Leadership</li>
+                        <li>Instructional Technology</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 11 -->
+                <div class="program-card" data-fee="340000">
+                    <div class="program-icon">
+                        <i class="fa fa-leaf"></i>
+                    </div>
+                    <h3>Master of Environmental Science</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,40,000</p>
+                    <p class="description">Environmental conservation, sustainability, climate change, and ecological research programs.</p>
+                    <ul class="highlights">
+                        <li>Climate Science</li>
+                        <li>Conservation Biology</li>
+                        <li>Sustainability Studies</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+
+                <!-- Master Program 12 -->
+                <div class="program-card" data-fee="335000">
+                    <div class="program-icon">
+                        <i class="fa fa-film"></i>
+                    </div>
+                    <h3>Master of Media & Communication</h3>
+                    <p class="duration"><i class="fa fa-clock-o"></i> 2 Years | <i class="fa fa-calendar"></i> Full-time</p>
+                    <p class="fee"><i class="fa fa-inr"></i> Fee: ₹3,35,000</p>
+                    <p class="description">Digital media, journalism, strategic communication, and media production in modern context.</p>
+                    <ul class="highlights">
+                        <li>Digital Journalism</li>
+                        <li>Strategic Communication</li>
+                        <li>Media Production</li>
+                    </ul>
+                    <button class="apply-btn">Apply Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Start Your Journey?</h2>
+            <p>Join thousands of students who have transformed their careers with EduNova University</p>
+            <button class="cta-btn" onclick="window.location.href='contact.html'">Contact Us</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+       <footer class="footer">
+        <div class="conn">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>User Links</h4>
+                        <ul>
+                            <li><a href="home.html" >Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="#testimonials">Testimonials</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="login.html">Log In</a></li>
+                        </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Core Values</h4>
+                        <ul>
+                            <li><a>Excellence</a></li>
+                            <li><a>Integrity</a></li>
+                            <li><a>Diversity</a></li>
+                            <li><a>Innovation</a></li>
+                        </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Courses</h4>
+                        <ul>
+                            <li><a>UI/UX Designer Courses</a></li>
+                            <li><a>PHP Shopify Courses</a></li>
+                            <li><a>Photoshop Web DESIGN</a></li>
+                            <li><a>Sketch Mobile App</a></li>
+                        </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/"><i class="fab fa-x"></i></a>
+                            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                            <a href="https://in.linkedin.com/"><i class="fab fa-linkedin"></i></a>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+       </footer>
+
+    <script>
+        // Apply button wiring: requires student login, then redirects to apply.html
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (typeof API_BASE_URL === 'undefined') {
+                console.error('api.js not loaded. Make sure js/api.js exists.');
+                return;
+            }
+
+            const applyButtons = document.querySelectorAll('.program-card .apply-btn');
+            if (applyButtons.length === 0) return;
+
+            // Map course name -> course record from backend
+            let coursesByName = new Map();
+            try {
+                const res = await getAllCourses();
+                const courses = res.courses || [];
+                coursesByName = new Map(courses.map(c => [String(c.name).toLowerCase().trim(), c]));
+            } catch (e) {
+                console.warn('Could not fetch courses from backend. Apply buttons will still prompt login, but cannot submit.', e);
+            }
+
+            applyButtons.forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+
+                    if (!isLoggedIn()) {
+                        alert('Please login as a student to apply.');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    const user = getCurrentUser();
+                    if (!user || user.role !== 'student') {
+                        alert('Student login required to apply for courses.');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    const card = btn.closest('.program-card');
+                    const titleEl = card ? card.querySelector('h3') : null;
+                    const courseName = titleEl ? titleEl.textContent.trim() : '';
+                    const course = coursesByName.get(courseName.toLowerCase());
+
+                    if (!course || !course.id) {
+                        alert('This course is not available in the database yet. Please contact admin.');
+                        return;
+                    }
+
+                    // Redirect to application form (pre-select the course)
+                    window.location.href = `apply.html?courseId=${encodeURIComponent(course.id)}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

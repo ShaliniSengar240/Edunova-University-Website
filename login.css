@@ -1,0 +1,474 @@
+/* Login Page Styles */
+
+.login-container {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px 40px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.login-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1100px;
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Login Form Section */
+.login-form-section {
+    padding: 50px 40px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.login-header h1 {
+    color: rgb(10, 10, 110);
+    font-size: 36px;
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Role Tabs */
+.role-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.role-tab {
+    padding: 12px 80px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    color: #666;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.role-tab:hover {
+    border-color: rgb(10, 10, 110);
+    color: rgb(10, 10, 110);
+}
+
+.role-tab.active {
+    background: rgb(10, 10, 110);
+    color: white;
+    border-color: rgb(10, 10, 110);
+}
+
+.role-tab i {
+    font-size: 16px;
+}
+
+/* Form Groups */
+.login-form .form-group {
+    margin-bottom: 25px;
+}
+
+.login-form .form-group label {
+    display: block;
+    color: rgb(10, 10, 110);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.login-form .form-group label i {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.login-form .form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.login-form .form-group input:focus {
+    outline: none;
+    border-color: rgb(10, 10, 110);
+    box-shadow: 0 0 0 3px rgba(10, 10, 110, 0.1);
+}
+
+/* Password Wrapper */
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 45px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: rgb(10, 10, 110);
+}
+
+/* Form Options */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #555;
+}
+
+.remember-me input {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: rgb(10, 10, 110);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: maroon;
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    padding: 16px;
+    background: rgb(10, 10, 110);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.login-btn:hover {
+    background: maroon;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(128, 0, 0, 0.3);
+}
+
+/* Divider */
+.divider {
+    text-align: center;
+    margin: 25px 0;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.divider span {
+    background: white;
+    padding: 0 15px;
+    color: #999;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Social Login */
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.social-btn {
+    padding: 13px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-btn.google {
+    color: #DB4437;
+    border-color: #DB4437;
+}
+
+.social-btn.google:hover {
+    background: #DB4437;
+    color: white;
+}
+
+.social-btn.microsoft {
+    color: #00A4EF;
+    border-color: #00A4EF;
+}
+
+.social-btn.microsoft:hover {
+    background: #00A4EF;
+    color: white;
+}
+
+/* Register Link */
+.register-link {
+    text-align: center;
+    font-size: 15px;
+    color: #666;
+}
+
+.register-link a {
+    color: rgb(10, 10, 110);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+    color: maroon;
+}
+
+/* Info Section */
+.login-info-section {
+    background: linear-gradient(135deg, rgb(7, 7, 79) 0%, rgb(26, 13, 81) 100%);
+    padding: 50px 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-content {
+    text-align: center;
+}
+
+.info-icon img{
+    width: 135px;
+    height: 135px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.info-icon img {
+    font-size: 50px;
+    color: white;
+}
+
+.info-content h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
+.info-content > p {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+.info-features {
+    text-align: left;
+    max-width: 300px;
+    margin: 0 auto 40px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    font-size: 15px;
+}
+
+.feature-item i {
+    color: #4CAF50;
+    font-size: 20px;
+}
+
+.help-section {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.help-section p {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.help-section a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 2px solid white;
+    transition: all 0.3s ease;
+}
+
+.help-section a:hover {
+    color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .login-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .login-info-section {
+        order: -1;
+        padding: 40px 30px;
+    }
+
+    .info-content h2 {
+        font-size: 28px;
+    }
+
+    .info-content > p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 100px 15px 30px;
+    }
+
+    .login-form-section {
+        padding: 40px 25px;
+    }
+
+    .login-header h1 {
+        font-size: 30px;
+    }
+
+    .role-tabs {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .info-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .info-icon i {
+        font-size: 40px;
+    }
+
+    .info-content h2 {
+        font-size: 24px;
+    }
+
+    .feature-item {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-form-section {
+        padding: 30px 20px;
+    }
+
+    .login-header h1 {
+        font-size: 26px;
+    }
+
+    .login-header p {
+        font-size: 14px;
+    }
+
+    .role-tab {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .form-group input {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .login-btn {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .social-btn {
+        padding: 11px;
+        font-size: 14px;
+    }
+
+    .info-content h2 {
+        font-size: 22px;
+    }
+}

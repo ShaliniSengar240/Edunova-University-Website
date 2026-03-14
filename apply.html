@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Application - EduNova University</title>
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .application-container {
+            max-width: 1000px;
+            margin: 100px auto 50px;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .application-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #0c1f71;
+        }
+        .application-header h1 {
+            color: #1a1a2e;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .application-header p {
+            color: #666;
+            font-size: 16px;
+        }
+        .section-title {
+            background: linear-gradient(135deg, #551664 0%, #120a47 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 30px 0 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .form-group label .required {
+            color: #e74c3c;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .file-upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: #f8f9ff;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        .file-upload-area:hover {
+            background: #f0f2ff;
+            border-color: #5568d3;
+        }
+        .file-upload-area input[type="file"] {
+            display: none;
+        }
+        .file-upload-label {
+            cursor: pointer;
+            color: #667eea;
+            font-weight: 600;
+        }
+        .file-upload-label i {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .file-name {
+            margin-top: 10px;
+            color: #28a745;
+            font-size: 14px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        .checkbox-group label {
+            margin: 0;
+            font-weight: normal;
+            color: #666;
+        }
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .info-box p {
+            margin: 0;
+            color: #856404;
+        }
+        .submit-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .application-container {
+                margin: 80px 15px 30px;
+                padding: 25px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="js/api.js"></script>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check">
+          <i class="fa fa-bars" id="checkbtn"></i>
+          <i class="fa fa-close" id="cancel"></i>
+        </label>
+        <img src="logo2.jpg" class="logo">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="home.html#testimonials">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><input type="text" placeholder="Search Course" required></li>
+        </ul>
+    </nav>
+
+    <div class="application-container">
+        <div class="application-header">
+            <h1><i class="fa fa-graduation-cap"></i> Course Application Form</h1>
+            <p>Please fill out all required fields carefully</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <form id="applicationForm">
+            <!-- Course Selection -->
+            <div class="section-title">
+                <i class="fa fa-book"></i> Course Selection
+            </div>
+
+            <div class="form-group">
+                <label>Select Course <span class="required">*</span></label>
+                <select id="courseId" name="courseId" required>
+                    <option value="">-- Select a Course --</option>
+                </select>
+            </div>
+
+            <div class="info-box" id="courseTypeInfo" style="display: none;">
+                <p><i class="fa fa-info-circle"></i> <span id="courseTypeText"></span></p>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="section-title">
+                <i class="fa fa-user"></i> Personal Information
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" placeholder="As per official documents" required>
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth <span class="required">*</span></label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Gender <span class="required">*</span></label>
+                    <select id="gender" name="gender" required>
+                        <option value="">-- Select --</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nationality <span class="required">*</span></label>
+                    <input type="text" id="nationality" name="nationality" value="Indian" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Place of Birth <span class="required">*</span></label>
+                    <input type="text" id="birthPlace" name="birthPlace" placeholder="City, State" required>
+                </div>
+                <div class="form-group">
+                    <label>Religion</label>
+                    <input type="text" id="religion" name="religion" placeholder="Optional">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number <span class="required">*</span></label>
+                    <input type="tel" id="mobile" name="mobile" placeholder="10-digit number" pattern="[0-9]{10}" required>
+                </div>
+            </div>
+
+            <!-- Address Information -->
+            <div class="section-title">
+                <i class="fa fa-home"></i> Address Information
+            </div>
+
+            <div class="form-group">
+                <label>Permanent Address <span class="required">*</span></label>
+                <textarea id="permanentAddress" name="permanentAddress" rows="3" placeholder="House/Flat No., Street, Area, City, State, PIN Code" required></textarea>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="sameAddress" onchange="copyAddress()">
+                <label for="sameAddress">Present address is same as permanent address</label>
+            </div>
+
+            <div class="form-group">
+                <label>Present Address <span class="required">*</span></label>
+                <textarea id="presentAddress" name="presentAddress" rows="3" placeholder="House/Flat No., Street, Area, City, State, PIN Code" required></textarea>
+            </div>
+
+            <!-- Educational Qualifications -->
+            <div class="section-title">
+                <i class="fa fa-certificate"></i> Educational Qualifications
+            </div>
+
+            <!-- 10th Details -->
+            <h3 style="color: #667eea; margin: 20px 0 10px;">10th Standard</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Board <span class="required">*</span></label>
+                    <input type="text" id="board10" name="board10" placeholder="e.g., CBSE, ICSE, State Board" required>
+                </div>
+                <div class="form-group">
+                    <label>Year of Passing <span class="required">*</span></label>
+                    <input type="number" id="year10" name="year10" min="1990" max="2030" placeholder="YYYY" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Percentage / CGPA <span class="required">*</span></label>
+                    <input type="text" id="marks10" name="marks10" placeholder="e.g., 85% or 8.5 CGPA" required>
+                </div>
+                <div class="form-group">
+                    <label>School Name <span class="required">*</span></label>
+                    <input type="text" id="school10" name="school10" placeholder="School name" required>
+                </div>
+            </div>
+
+            <!-- 12th Details -->
+            <h3 style="color: #667eea; margin: 20px 0 10px;">12th Standard / Pre-University</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Board <span class="required">*</span></label>
+                    <input type="text" id="board12" name="board12" placeholder="e.g., CBSE, ICSE, State Board" required>
+                </div>
+                <div class="form-group">
+                    <label>Year of Passing <span class="required">*</span></label>
+                    <input type="number" id="year12" name="year12" min="1990" max="2030" placeholder="YYYY" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Percentage / CGPA <span class="required">*</span></label>
+                    <input type="text" id="marks12" name="marks12" placeholder="e.g., 85% or 8.5 CGPA" required>
+                </div>
+                <div class="form-group">
+                    <label>School/College Name <span class="required">*</span></label>
+                    <input type="text" id="school12" name="school12" placeholder="Institution name" required>
+                </div>
+            </div>
+
+            <!-- Bachelor's Degree (For Masters applicants) -->
+            <div id="bachelorSection" style="display: none;">
+                <h3 style="color: #667eea; margin: 20px 0 10px;">Bachelor's Degree</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Degree Name <span class="required">*</span></label>
+                        <input type="text" id="bachelorDegree" name="bachelorDegree" placeholder="e.g., B.Tech, B.Sc, B.Com">
+                    </div>
+                    <div class="form-group">
+                        <label>University <span class="required">*</span></label>
+                        <input type="text" id="bachelorUniversity" name="bachelorUniversity" placeholder="University name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Year of Passing <span class="required">*</span></label>
+                        <input type="number" id="bachelorYear" name="bachelorYear" min="1990" max="2030" placeholder="YYYY">
+                    </div>
+                    <div class="form-group">
+                        <label>Percentage / CGPA <span class="required">*</span></label>
+                        <input type="text" id="bachelorMarks" name="bachelorMarks" placeholder="e.g., 75% or 7.5 CGPA">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Certifications -->
+            <div class="form-group">
+                <label>Additional Certifications / Courses (if any)</label>
+                <textarea id="certifications" name="certifications" rows="3" placeholder="List any additional certifications, online courses, or skill training you have completed"></textarea>
+            </div>
+
+            <!-- Document Uploads -->
+            <div class="section-title">
+                <i class="fa fa-upload"></i> Document Uploads
+            </div>
+
+            <div class="info-box">
+                <p><i class="fa fa-info-circle"></i> Please upload clear scanned copies of your mark sheets. Supported formats: PDF, JPG, PNG (Max 5MB each)</p>
+            </div>
+
+            <!-- 10th Marksheet -->
+            <div class="form-group">
+                <label>10th Standard Marksheet <span class="required">*</span></label>
+                <div class="file-upload-area">
+                    <input type="file" id="doc10th" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileUpload(this, 'fileName10th')">
+                    <label for="doc10th" class="file-upload-label">
+                        <i class="fa fa-cloud-upload"></i>
+                        <div>Click to upload 10th Marksheet</div>
+                        <small style="color: #666;">PDF, JPG, PNG (Max 5MB)</small>
+                    </label>
+                    <div class="file-name" id="fileName10th"></div>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="no10th" onchange="toggleDocument('doc10th', this)">
+                    <label for="no10th">I don't have this document right now</label>
+                </div>
+            </div>
+
+            <!-- 12th Marksheet -->
+            <div class="form-group">
+                <label>12th Standard Marksheet <span class="required">*</span></label>
+                <div class="file-upload-area">
+                    <input type="file" id="doc12th" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileUpload(this, 'fileName12th')">
+                    <label for="doc12th" class="file-upload-label">
+                        <i class="fa fa-cloud-upload"></i>
+                        <div>Click to upload 12th Marksheet</div>
+                        <small style="color: #666;">PDF, JPG, PNG (Max 5MB)</small>
+                    </label>
+                    <div class="file-name" id="fileName12th"></div>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="no12th" onchange="toggleDocument('doc12th', this)">
+                    <label for="no12th">I don't have this document right now</label>
+                </div>
+            </div>
+
+            <!-- Bachelor's Marksheet (For Masters applicants) -->
+            <div class="form-group" id="bachelorDocSection" style="display: none;">
+                <label>Bachelor's Degree Marksheet <span class="required">*</span></label>
+                <div class="file-upload-area">
+                    <input type="file" id="docBachelor" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileUpload(this, 'fileNameBachelor')">
+                    <label for="docBachelor" class="file-upload-label">
+                        <i class="fa fa-cloud-upload"></i>
+                        <div>Click to upload Bachelor's Marksheet</div>
+                        <small style="color: #666;">PDF, JPG, PNG (Max 5MB)</small>
+                    </label>
+                    <div class="file-name" id="fileNameBachelor"></div>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="noBachelor" onchange="toggleDocument('docBachelor', this)">
+                    <label for="noBachelor">I don't have this document right now</label>
+                </div>
+            </div>
+
+            <!-- Declaration -->
+            <div class="section-title">
+                <i class="fa fa-check-square"></i> Declaration
+            </div>
+
+            <div class="checkbox-group" style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                <input type="checkbox" id="declaration" required>
+                <label for="declaration" style="font-weight: 600;">
+                    I hereby declare that all the information provided above is true and correct to the best of my knowledge. I understand that any false information may result in the cancellation of my application.
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="submit-section">
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fa fa-paper-plane"></i> Submit Application
+                </button>
+                <p style="color: #666; margin-top: 15px; font-size: 14px;">
+                    Please review all information before submitting
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="conn">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>User Links</h4>
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Core Values</h4>
+                    <ul>
+                        <li><a>Excellence</a></li>
+                        <li><a>Integrity</a></li>
+                        <li><a>Diversity</a></li>
+                        <li><a>Innovation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/"><i class="fab fa-x"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://in.linkedin.com/"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let selectedCourseType = '';
+
+        // Check if user is logged in
+        if (!isLoggedIn()) {
+            alert('Please login to apply for courses');
+            window.location.href = 'login.html';
+        }
+
+        // Load courses on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadCourses();
+            
+            // Get course ID from URL if coming from courses page
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('courseId');
+            if (courseId) {
+                document.getElementById('courseId').value = courseId;
+                handleCourseChange();
+            }
+        });
+
+        // Load courses from backend
+        async function loadCourses() {
+            try {
+                const result = await getAllCourses();
+                const select = document.getElementById('courseId');
+                
+                result.courses.forEach(course => {
+                    const option = document.createElement('option');
+                    option.value = course.id;
+                    option.textContent = `${course.name} (${course.type})`;
+                    option.dataset.type = course.type;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading courses:', error);
+                showError('Failed to load courses. Please refresh the page.');
+            }
+        }
+
+        // Handle course selection change
+        document.getElementById('courseId').addEventListener('change', handleCourseChange);
+
+        function handleCourseChange() {
+            const select = document.getElementById('courseId');
+            const selectedOption = select.options[select.selectedIndex];
+            
+            if (selectedOption.value) {
+                selectedCourseType = selectedOption.dataset.type;
+                
+                const isMasters = selectedCourseType === 'Master';
+                
+                // Show/hide bachelor's section
+                document.getElementById('bachelorSection').style.display = isMasters ? 'block' : 'none';
+                document.getElementById('bachelorDocSection').style.display = isMasters ? 'block' : 'none';
+                
+                // Set required attribute
+                const bachelorFields = ['bachelorDegree', 'bachelorUniversity', 'bachelorYear', 'bachelorMarks'];
+                bachelorFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        field.required = isMasters;
+                    }
+                });
+                
+                // Show info
+                document.getElementById('courseTypeInfo').style.display = 'block';
+                document.getElementById('courseTypeText').textContent = isMasters 
+                    ? 'You are applying for a Master\'s program. Please fill Bachelor\'s degree details and upload all 3 mark sheets.'
+                    : 'You are applying for a Bachelor\'s program. Please upload 10th and 12th mark sheets.';
+            } else {
+                document.getElementById('courseTypeInfo').style.display = 'none';
+            }
+        }
+
+        // Copy permanent address to present address
+        function copyAddress() {
+            const checkbox = document.getElementById('sameAddress');
+            const permanentAddress = document.getElementById('permanentAddress').value;
+            
+            if (checkbox.checked) {
+                document.getElementById('presentAddress').value = permanentAddress;
+            } else {
+                document.getElementById('presentAddress').value = '';
+            }
+        }
+
+        // Handle file upload
+        function handleFileUpload(input, displayId) {
+            const file = input.files[0];
+            const display = document.getElementById(displayId);
+            
+            if (file) {
+                // Check file size (5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size exceeds 5MB. Please upload a smaller file.');
+                    input.value = '';
+                    display.textContent = '';
+                    return;
+                }
+                
+                display.innerHTML = `<i class="fa fa-check-circle"></i> ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+            } else {
+                display.textContent = '';
+            }
+        }
+
+        // Toggle document requirement
+        function toggleDocument(inputId, checkbox) {
+            const input = document.getElementById(inputId);
+            const display = document.getElementById('fileName' + inputId.replace('doc', ''));
+            
+            if (checkbox.checked) {
+                input.required = false;
+                input.disabled = true;
+                input.value = '';
+                display.textContent = '';
+            } else {
+                input.required = true;
+                input.disabled = false;
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Handle form submission
+        document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalHTML = submitBtn.innerHTML;
+            
+            try {
+                // Disable submit button
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Submitting...';
+                
+                // Collect form data
+                const formData = {
+                    courseId: document.getElementById('courseId').value,
+                    fullName: document.getElementById('fullName').value,
+                    dob: document.getElementById('dob').value,
+                    gender: document.getElementById('gender').value,
+                    nationality: document.getElementById('nationality').value,
+                    birthPlace: document.getElementById('birthPlace').value,
+                    religion: document.getElementById('religion').value,
+                    email: document.getElementById('email').value,
+                    mobile: document.getElementById('mobile').value,
+                    permanentAddress: document.getElementById('permanentAddress').value,
+                    presentAddress: document.getElementById('presentAddress').value,
+                    
+                    // 10th details
+                    board10: document.getElementById('board10').value,
+                    year10: document.getElementById('year10').value,
+                    marks10: document.getElementById('marks10').value,
+                    school10: document.getElementById('school10').value,
+                    
+                    // 12th details
+                    board12: document.getElementById('board12').value,
+                    year12: document.getElementById('year12').value,
+                    marks12: document.getElementById('marks12').value,
+                    school12: document.getElementById('school12').value,
+                    
+                    // Additional info
+                    certifications: document.getElementById('certifications').value,
+                    courseType: selectedCourseType
+                };
+                
+                // Add bachelor's details if applying for master's
+                if (selectedCourseType === 'Master') {
+                    formData.bachelorDegree = document.getElementById('bachelorDegree').value;
+                    formData.bachelorUniversity = document.getElementById('bachelorUniversity').value;
+                    formData.bachelorYear = document.getElementById('bachelorYear').value;
+                    formData.bachelorMarks = document.getElementById('bachelorMarks').value;
+                }
+                
+                // Document status
+                formData.documents = {
+                    has10th: !document.getElementById('no10th').checked,
+                    has12th: !document.getElementById('no12th').checked,
+                    hasBachelor: selectedCourseType === 'Master' ? !document.getElementById('noBachelor').checked : false
+                };
+                
+                // Submit application
+                const additionalInfo = JSON.stringify(formData);
+                const result = await submitApplication(formData.courseId, additionalInfo);
+                
+                // Show success message
+                showSuccess('✅ Application submitted successfully! Application ID: ' + result.applicationId);
+                
+                // Reset form
+                document.getElementById('applicationForm').reset();
+                
+                // Redirect to dashboard after 3 seconds
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Error submitting application:', error);
+                showError('Failed to submit application: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+            }
+        });
+    </script>
+</body>
+</html>
